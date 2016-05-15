@@ -4,12 +4,18 @@ using System.Collections.Generic;
 
 public class GameScript : MonoBehaviour {
 
-    List<GameObject> m_tiles;
+    //Map of tile data
+    Dictionary<string, GameObject> m_tiles;
+    //List<GameObject> m_tiles;
+
     const int MAX_SIZE = 5;
-    GameObject m_tileObject;
+    public GameObject m_tileObject;
 
 	// Use this for initialization
 	void Start () {
+        //Intialize the map
+        m_tiles = new Dictionary<string, GameObject>();
+
         //At the start of the game it will initialze the tiles by reading xml file
         //For now have a default layout
         GameObject tile;
@@ -22,9 +28,10 @@ public class GameScript : MonoBehaviour {
                 //Get the component and call the set tile function
                 tile.GetComponent<TileScript>().setTile("Cross Tile");
                 //Set the position of the tile
-                tile.transform.position = new Vector3(x, y, 0);
+                tile.transform.position = new Vector3(x * tile.GetComponent<SpriteRenderer>().sprite.bounds.size.x,
+                    y * tile.GetComponent<SpriteRenderer>().sprite.bounds.size.y, 0);
                 //Add the tile to the list
-                m_tiles.Add(tile);
+                m_tiles.Add("Row: " + y + " Column: " + x, tile);
             }
         }
 

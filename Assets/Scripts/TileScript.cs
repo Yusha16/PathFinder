@@ -55,6 +55,8 @@ public class TileScript : MonoBehaviour {
         else if (filename == "Cross Tile")
         {
             setCrossType();
+            //For now...
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RegCross;
         }
         else if (filename == "Empty Tile")
         {
