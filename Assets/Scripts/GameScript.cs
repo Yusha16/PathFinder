@@ -50,27 +50,32 @@ public class GameScript : MonoBehaviour {
     {
         XmlDocument xmlFile = new XmlDocument();
         xmlFile.Load(filepath);
-
         GameObject tile;
         //Go to the First Tile Tag node
         XmlNode currentTileNode = xmlFile.FirstChild.FirstChild;
         XmlNode currentNode;
+        //Get the size of the level (number of tile tags)
         int TotalTiles = xmlFile.FirstChild.ChildNodes.Count;
+        //The position of the tile
+        Vector3 tilePosition;
         for (int i = 0; i < TotalTiles; i++)
         {
             //Instantiating a prefab of the tile
             tile = Instantiate(m_tileObject);
             //Go to the Position tag
             currentNode = currentTileNode.FirstChild;
+            //Get the tile position from the Position node
+            tilePosition = new Vector3(float.Parse(currentNode.FirstChild.InnerText),
+                float.Parse(currentNode.FirstChild.NextSibling.InnerText), 0);
             //Set the position of the tile
-            tile.transform.position = new Vector3(float.Parse(currentNode.FirstChild.InnerText) * SIZE_OF_SPRITE.x,
-                float.Parse(currentNode.FirstChild.NextSibling.InnerText) * SIZE_OF_SPRITE.y, 0);
+            tile.transform.position = new Vector3(tilePosition.x * SIZE_OF_SPRITE.x,
+                tilePosition.y * SIZE_OF_SPRITE.y, 0);
             //Go to the Type tag
             currentNode = currentNode.NextSibling;
             //Get the component and call the set tile function
             tile.GetComponent<TileScript>().setTile(currentNode.InnerText, currentNode.NextSibling.InnerText);
             //Add the tile to the list
-            //m_tiles.Add("Row: " + y + " Column: " + x, tile);
+            m_tiles.Add("Row: " + tilePosition.y + " Column: " + tilePosition.x, tile);
             currentTileNode = currentTileNode.NextSibling;
         }
     }
