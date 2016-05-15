@@ -42,47 +42,73 @@ public class TileScript : MonoBehaviour {
     }
 
     //Set the tile type from the filename and set all the properties of the specific type
-    public void setTile(string filename)
+    public void setTile(string tileType, string shape)
     {
-        if (filename == "Bottom and Left Tile")
+        if (tileType == "Regular")
+        {
+            m_type = TileType.Regular;
+        }
+        else if (tileType == "Moving")
+        {
+            m_type = TileType.Moving;
+        }
+        else if (tileType == "Rotating")
+        {
+            m_type = TileType.Rotating;
+        }
+        else if (tileType == "MultiRotate")
+        {
+            m_type = TileType.MultiRotate;
+        }
+
+
+
+        if (shape == "BottomLeft")
         {
 
         }
-        else if (filename == "Bottom and Right Tile")
+        else if (shape == "BottomRight")
         {
 
         }
-        else if (filename == "Cross Tile")
+        else if (shape == "Cross")
         {
             setCrossType();
-            //For now...
-            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RegCross;
+            if (m_type == TileType.Regular)
+            {
+                //For now...
+                GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RegCross;
+            }
         }
-        else if (filename == "Empty Tile")
+        else if (shape == "Empty")
         {
-            
+            if (m_type == TileType.Regular)
+            {
+                //For now...
+                GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RegEmpty;
+            }
         }
-        else if (filename == "Line Across Tile")
-        {
-
-        }
-        else if (filename == "Line Down Tile")
-        {
-
-        }
-        else if (filename == "Top and Left Tile")
-        {
-
-        }
-        else if (filename == "Top and Right Tile")
+        else if (shape == "LineAcross")
         {
 
         }
-        else if (filename == "Warp 1 Tile")
+        else if (shape == "LineDown")
         {
 
         }
-        else if (filename == "Warp 2 Tile")
+        else if (shape == "TopLeft")
+        {
+
+        }
+        else if (shape == "TopRight")
+        {
+
+        }
+        else if (shape == "Warp1")
+        {
+
+        }
+        else if (shape == "Warp2")
         {
 
         }
