@@ -43,7 +43,16 @@ public class GameScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
+        //User Pressed the left mouse button
+        if (Input.GetMouseButtonDown(0))
+        {
+            //Shoot a ray and find a tile to fire event
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit rayHitInfo;
+            Physics.Raycast(ray, out rayHitInfo, Mathf.Infinity);
+            Debug.Log(rayHitInfo.transform.gameObject.name);
+        }
 	}
 
     void loadTile(string filepath)
