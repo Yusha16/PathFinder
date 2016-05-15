@@ -10,12 +10,13 @@ public class GameScript : MonoBehaviour {
 
     const int MAX_SIZE = 5;
     public GameObject m_tileObject;
+    Vector3 SIZE_OF_SPRITE;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         //Intialize the map
         m_tiles = new Dictionary<string, GameObject>();
-
+        SIZE_OF_SPRITE = m_tileObject.GetComponent<SpriteRenderer>().sprite.bounds.size;
         //At the start of the game it will initialze the tiles by reading xml file
         //For now have a default layout
         GameObject tile;
@@ -28,8 +29,7 @@ public class GameScript : MonoBehaviour {
                 //Get the component and call the set tile function
                 tile.GetComponent<TileScript>().setTile("Cross Tile");
                 //Set the position of the tile
-                tile.transform.position = new Vector3(x * tile.GetComponent<SpriteRenderer>().sprite.bounds.size.x,
-                    y * tile.GetComponent<SpriteRenderer>().sprite.bounds.size.y, 0);
+                tile.transform.position = new Vector3(x * SIZE_OF_SPRITE.x, y * SIZE_OF_SPRITE.y, 0);
                 //Add the tile to the list
                 m_tiles.Add("Row: " + y + " Column: " + x, tile);
             }
