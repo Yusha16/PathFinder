@@ -38,12 +38,10 @@ public class GameScript : MonoBehaviour {
         //}
 
         loadTile("Assets/LevelData/Level1.xml");
-
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
-
         //User Pressed the left mouse button
         if (Input.GetMouseButtonDown(0))
         {
@@ -83,6 +81,8 @@ public class GameScript : MonoBehaviour {
             currentNode = currentNode.NextSibling;
             //Get the component and call the set tile function
             tile.GetComponent<TileScript>().setTile(currentNode.InnerText, currentNode.NextSibling.InnerText);
+            //Change the name of the tile
+            tile.name = "Row: " + tilePosition.y + " Column: " + tilePosition.x;
             //Add the tile to the list
             m_tiles.Add("Row: " + tilePosition.y + " Column: " + tilePosition.x, tile);
             currentTileNode = currentTileNode.NextSibling;

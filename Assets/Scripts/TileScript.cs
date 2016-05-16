@@ -14,15 +14,13 @@ public class TileScript : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        m_type = TileType.Regular;
-        m_side1 = 5;
-        m_side2 = 5;
+
     }
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+
+    }
 
     //User input with mouse on this tile
     public void onMouseHit()
@@ -103,10 +101,6 @@ public class TileScript : MonoBehaviour {
         {
             setWarp2Type();
         }
-
-
-        //Read the string to see if it can rotate or move
-        //Have if statement and set the bool flag for the tile to their corresponding type
     }
 
 
@@ -350,14 +344,14 @@ public class TileScript : MonoBehaviour {
             //Rotate the ends clockwise
             m_side1 = (m_side1 + 1) % 4;
             m_side2 = (m_side2 + 1) % 4;
-            transform.Rotate(new Vector3(0, 0, 90));
+            transform.Rotate(0, 0, -90);
         }
     }
 
     //Properties
 
     //Tile type
-    TileType m_type;
+    TileType m_type = TileType.Regular;
 
     //The opening and closing of the tile
     /*
@@ -372,6 +366,6 @@ public class TileScript : MonoBehaviour {
         4 for all side opening (only used for the cross tile)
         5 for no side opening (only used for the empty tile)
     */
-    int m_side1;
-    int m_side2;
+    int m_side1 = 5;
+    int m_side2 = 5;
 }
