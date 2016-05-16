@@ -25,7 +25,7 @@ public class TileScript : MonoBehaviour {
 	}
 
     //User input with mouse on this tile
-    void onMouseHit()
+    public void onMouseHit()
     {
         if (m_type == TileType.Rotating)
         {
@@ -65,52 +65,43 @@ public class TileScript : MonoBehaviour {
 
         if (shape == "BottomLeft")
         {
-
+            setBottomLeftType();
         }
         else if (shape == "BottomRight")
         {
-
+            setBottomRightType();
         }
         else if (shape == "Cross")
         {
             setCrossType();
-            if (m_type == TileType.Regular)
-            {
-                //For now...
-                GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RegCross;
-            }
         }
         else if (shape == "Empty")
         {
-            if (m_type == TileType.Regular)
-            {
-                //For now...
-                GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RegEmpty;
-            }
+            setEmptyType();
         }
         else if (shape == "LineAcross")
         {
-
+            setLineAcross();
         }
         else if (shape == "LineDown")
         {
-
+            setLineDown();
         }
         else if (shape == "TopLeft")
         {
-
+            setTopLeftType();
         }
         else if (shape == "TopRight")
         {
-
+            setTopRightType();
         }
         else if (shape == "Warp1")
         {
-
+            setWarp1Type();
         }
         else if (shape == "Warp2")
         {
-
+            setWarp2Type();
         }
 
 
@@ -119,11 +110,234 @@ public class TileScript : MonoBehaviour {
     }
 
 
+    //Set the bottom and left properties 
+    void setBottomLeftType()
+    {
+        m_side1 = 2;
+        m_side2 = 3;
+        if (m_type == TileType.Regular)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RegBottomAndLeft;
+        }
+        else if (m_type == TileType.Moving)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().MovingBottomAndLeft;
+        }
+        else if (m_type == TileType.Rotating)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RotatingBottomAndLeft;
+        }
+        else if (m_type == TileType.MultiRotate)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().MultiRotateBottomAndLeft;
+        }
+    }
+
+    //Set the bottom and right properties 
+    void setBottomRightType()
+    {
+        m_side1 = 1;
+        m_side2 = 2;
+        if (m_type == TileType.Regular)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RegBottomAndRight;
+        }
+        else if (m_type == TileType.Moving)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().MovingBottomAndRight;
+        }
+        else if (m_type == TileType.Rotating)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RotatingBottomAndRight;
+        }
+        else if (m_type == TileType.MultiRotate)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().MultiRotateBottomAndRight;
+        }
+    }
+
     //Set the cross properties
     void setCrossType()
     {
+        m_side1 = 4;
+        m_side2 = 4;
+        if (m_type == TileType.Regular)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RegCross;
+        }
+        else if (m_type == TileType.Moving)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().MovingCross;
+        }
+        else if (m_type == TileType.Rotating)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RotatingCross;
+        }
+        else if (m_type == TileType.MultiRotate)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().MultiRotateCross;
+        }
+    }
+
+    //Set the empty properties
+    void setEmptyType()
+    {
         m_side1 = 5;
         m_side2 = 5;
+        if (m_type == TileType.Regular)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RegEmpty;
+        }
+        else if (m_type == TileType.Moving)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().MovingEmpty;
+        }
+        else if (m_type == TileType.Rotating)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RotatingEmpty;
+        }
+        else if (m_type == TileType.MultiRotate)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().MultiRotateEmpty;
+        }
+    }
+
+    //Set the line across properties
+    void setLineAcross()
+    {
+        m_side1 = 1;
+        m_side2 = 3;
+        if (m_type == TileType.Regular)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RegLineAcross;
+        }
+        else if (m_type == TileType.Moving)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().MovingLineAcross;
+        }
+        else if (m_type == TileType.Rotating)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RotatingLineAcross;
+        }
+        else if (m_type == TileType.MultiRotate)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().MultiRotateLineAcross;
+        }
+    }
+
+    //Set the line down properties
+    void setLineDown()
+    {
+        m_side1 = 0;
+        m_side2 = 2;
+        if (m_type == TileType.Regular)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RegLineDown;
+        }
+        else if (m_type == TileType.Moving)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().MovingLineDown;
+        }
+        else if (m_type == TileType.Rotating)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RotatingLineDown;
+        }
+        else if (m_type == TileType.MultiRotate)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().MultiRotateLineDown;
+        }
+    }
+
+    //Set the top and left properties 
+    void setTopLeftType()
+    {
+        m_side1 = 0;
+        m_side2 = 3;
+        if (m_type == TileType.Regular)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RegTopAndLeft;
+        }
+        else if (m_type == TileType.Moving)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().MovingTopAndLeft;
+        }
+        else if (m_type == TileType.Rotating)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RotatingTopAndLeft;
+        }
+        else if (m_type == TileType.MultiRotate)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().MultiRotateTopAndLeft;
+        }
+    }
+
+    //Set the top and right properties 
+    void setTopRightType()
+    {
+        m_side1 = 0;
+        m_side2 = 1;
+        if (m_type == TileType.Regular)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RegTopAndRight;
+        }
+        else if (m_type == TileType.Moving)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().MovingTopAndRight;
+        }
+        else if (m_type == TileType.Rotating)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RotatingTopAndRight;
+        }
+        else if (m_type == TileType.MultiRotate)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().MultiRotateTopAndRight;
+        }
+    }
+
+    //Set the warp 1 properties 
+    void setWarp1Type()
+    {
+        m_side1 = 4;
+        m_side2 = 4;
+        if (m_type == TileType.Regular)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RegWarp1;
+        }
+        else if (m_type == TileType.Moving)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().MovingWarp1;
+        }
+        else if (m_type == TileType.Rotating)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RotatingWarp1;
+        }
+        else if (m_type == TileType.MultiRotate)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().MultiRotateWarp1;
+        }
+    }
+
+    //Set the warp 2 properties 
+    void setWarp2Type()
+    {
+        m_side1 = 4;
+        m_side2 = 4;
+        if (m_type == TileType.Regular)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RegWarp2;
+        }
+        else if (m_type == TileType.Moving)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().MovingWarp2;
+        }
+        else if (m_type == TileType.Rotating)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RotatingWarp2;
+        }
+        else if (m_type == TileType.MultiRotate)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().MultiRotateWarp2;
+        }
     }
 
 
@@ -136,6 +350,7 @@ public class TileScript : MonoBehaviour {
             //Rotate the ends clockwise
             m_side1 = (m_side1 + 1) % 4;
             m_side2 = (m_side2 + 1) % 4;
+            transform.Rotate(new Vector3(0, 0, 90));
         }
     }
 

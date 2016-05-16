@@ -92,8 +92,8 @@
 			<x>1</x>
 			<y>2</y>
 		</Position>
-		<Type>Regular</Type>
-		<Shape>Cross</Shape>
+		<Type>Rotating</Type>
+		<Shape>BottomLeft</Shape>
 	</Tile>
 	<Tile>
 		<Position>

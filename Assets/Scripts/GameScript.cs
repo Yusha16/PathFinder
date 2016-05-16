@@ -50,8 +50,8 @@ public class GameScript : MonoBehaviour {
             //Shoot a ray and find a tile to fire event
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayHitInfo;
-            Physics.Raycast(ray, out rayHitInfo, Mathf.Infinity);
-            Debug.Log(rayHitInfo.transform.gameObject.name);
+            Physics.Raycast(ray, out rayHitInfo);
+            rayHitInfo.transform.gameObject.GetComponent<TileScript>().onMouseHit();
         }
 	}
 
