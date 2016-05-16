@@ -132,7 +132,7 @@
 			<x>1</x>
 			<y>3</y>
 		</Position>
-		<Type>Regular</Type>
+		<Type>Moving</Type>
 		<Shape>Cross</Shape>
 	</Tile>
 	<Tile>
@@ -140,8 +140,8 @@
 			<x>2</x>
 			<y>3</y>
 		</Position>
-		<Type>Regular</Type>
-		<Shape>Cross</Shape>
+		<Type>Moving</Type>
+		<Shape>Empty</Shape>
 	</Tile>
 	<Tile>
 		<Position>

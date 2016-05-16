@@ -83,6 +83,8 @@ public class GameScript : MonoBehaviour {
             tile.GetComponent<TileScript>().setTile(currentNode.InnerText, currentNode.NextSibling.InnerText);
             //Change the name of the tile
             tile.name = "Row: " + tilePosition.y + " Column: " + tilePosition.x;
+            //Set the position of the tile
+            tile.GetComponent<TileScript>().setTilePosition(tilePosition);
             //Add the tile to the list
             m_tiles.Add("Row: " + tilePosition.y + " Column: " + tilePosition.x, tile);
             currentTileNode = currentTileNode.NextSibling;
@@ -94,8 +96,59 @@ public class GameScript : MonoBehaviour {
 
     }
 
-    void Move()
+    public void Move(string tileMoveName)
     {
+        Vector3 tilePosition = m_tiles[tileMoveName].GetComponent<TileScript>().getTilePosition();
+        Vector3 otherMoveTilePosition = findOtherMoveTile(tilePosition);
+        //Change the tile position of the object
+        m_tiles[tileMoveName].GetComponent<TileScript>().setTilePosition(otherMoveTilePosition);
+        m_tiles[tileMoveName].transform.position = new Vector3(otherMoveTilePosition.x * SIZE_OF_SPRITE.x,
+                otherMoveTilePosition.y * SIZE_OF_SPRITE.y, 0);
+        m_tiles["Row: " + otherMoveTilePosition.y + " Column: " + otherMoveTilePosition.x].GetComponent<TileScript>().setTilePosition(tilePosition);
+        m_tiles["Row: " + otherMoveTilePosition.y + " Column: " + otherMoveTilePosition.x].transform.position = new Vector3(tilePosition.x * SIZE_OF_SPRITE.x,
+                tilePosition.y * SIZE_OF_SPRITE.y, 0);
+        //Change the data in the map
+        GameObject tileObject = m_tiles[tileMoveName];
+        m_tiles[tileMoveName] = m_tiles["Row: " + otherMoveTilePosition.y + " Column: " + otherMoveTilePosition.x];
+        m_tiles["Row: " + otherMoveTilePosition.y + " Column: " + otherMoveTilePosition.x] = tileObject;
+    }
 
+    Vector3 findOtherMoveTile(Vector3 tilePosition)
+    {
+        //if the tile is not the left side of the edge
+        if (tilePosition.x != 0)
+        {
+            if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x - 1)].GetComponent<TileScript>().checkType("Moving"))
+            {
+                return new Vector3(tilePosition.x - 1, tilePosition.y, tilePosition.z);
+            }
+        }
+        //if the tile is not the top side of the edge
+        if (tilePosition.y != MAX_SIZE - 1)
+        {
+            if (m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType("Moving"))
+            {
+                return new Vector3(tilePosition.x, tilePosition.y + 1, tilePosition.z);
+            }
+        }
+        //if the tile is not the right side of the edge
+        if (tilePosition.x != MAX_SIZE - 1)
+        {
+            if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x + 1)].GetComponent<TileScript>().checkType("Moving"))
+            {
+                return new Vector3(tilePosition.x + 1, tilePosition.y, tilePosition.z);
+            }
+        }
+        //if the tile is not the bottom side of the edge
+        if (tilePosition.y != 0)
+        {
+            if (m_tiles["Row: " + (tilePosition.y - 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType("Moving"))
+            {
+                return new Vector3(tilePosition.x, tilePosition.y - 1, tilePosition.z);
+            }
+        }
+
+        //No other tile (not possible)
+        return new Vector3(-1, -1, -1);
     }
 }

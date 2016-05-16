@@ -36,6 +36,7 @@ public class TileScript : MonoBehaviour {
         else if (m_type == TileType.Moving)
         {
             //Call the game scene to swap this tile and the empty tile
+            GameObject.Find("Game Background").GetComponent<GameScript>().Move(name);
         }
     }
 
@@ -103,10 +104,22 @@ public class TileScript : MonoBehaviour {
         }
     }
 
+    //Set the position of the tile in Level Position
+    public void setTilePosition(Vector3 position)
+    {
+        m_position = position;
+    }
+
+    //Get the position of the tile in Level Position
+    public Vector3 getTilePosition()
+    {
+        return m_position;
+    }
 
     //Set the bottom and left properties 
     void setBottomLeftType()
     {
+        m_shape = "BottomLeft";
         m_side1 = 2;
         m_side2 = 3;
         if (m_type == TileType.Regular)
@@ -130,6 +143,7 @@ public class TileScript : MonoBehaviour {
     //Set the bottom and right properties 
     void setBottomRightType()
     {
+        m_shape = "BottomRight";
         m_side1 = 1;
         m_side2 = 2;
         if (m_type == TileType.Regular)
@@ -153,6 +167,7 @@ public class TileScript : MonoBehaviour {
     //Set the cross properties
     void setCrossType()
     {
+        m_shape = "Cross";
         m_side1 = 4;
         m_side2 = 4;
         if (m_type == TileType.Regular)
@@ -176,6 +191,7 @@ public class TileScript : MonoBehaviour {
     //Set the empty properties
     void setEmptyType()
     {
+        m_shape = "Empty";
         m_side1 = 5;
         m_side2 = 5;
         if (m_type == TileType.Regular)
@@ -199,6 +215,7 @@ public class TileScript : MonoBehaviour {
     //Set the line across properties
     void setLineAcross()
     {
+        m_shape = "LineAcross";
         m_side1 = 1;
         m_side2 = 3;
         if (m_type == TileType.Regular)
@@ -222,6 +239,7 @@ public class TileScript : MonoBehaviour {
     //Set the line down properties
     void setLineDown()
     {
+        m_shape = "LineDown";
         m_side1 = 0;
         m_side2 = 2;
         if (m_type == TileType.Regular)
@@ -245,6 +263,7 @@ public class TileScript : MonoBehaviour {
     //Set the top and left properties 
     void setTopLeftType()
     {
+        m_shape = "TopLeft";
         m_side1 = 0;
         m_side2 = 3;
         if (m_type == TileType.Regular)
@@ -268,6 +287,7 @@ public class TileScript : MonoBehaviour {
     //Set the top and right properties 
     void setTopRightType()
     {
+        m_shape = "TopRight";
         m_side1 = 0;
         m_side2 = 1;
         if (m_type == TileType.Regular)
@@ -291,6 +311,7 @@ public class TileScript : MonoBehaviour {
     //Set the warp 1 properties 
     void setWarp1Type()
     {
+        m_shape = "Warp1";
         m_side1 = 4;
         m_side2 = 4;
         if (m_type == TileType.Regular)
@@ -314,6 +335,7 @@ public class TileScript : MonoBehaviour {
     //Set the warp 2 properties 
     void setWarp2Type()
     {
+        m_shape = "Warp2";
         m_side1 = 4;
         m_side2 = 4;
         if (m_type == TileType.Regular)
@@ -348,7 +370,31 @@ public class TileScript : MonoBehaviour {
         }
     }
 
+    public bool checkType(string typeName)
+    {
+        if (typeName == "Regular")
+        {
+            return m_type == TileType.Regular;
+        }
+        if (typeName == "Moving")
+        {
+            return m_type == TileType.Moving;
+        }
+        if (typeName == "Rotating")
+        {
+            return m_type == TileType.Rotating;
+        }
+        if (typeName == "MultiRotate")
+        {
+            return m_type == TileType.MultiRotate;
+        }
+        return false;
+    }
+
     //Properties
+
+    //Tile Shape 
+    string m_shape = "Empty";
 
     //Tile type
     TileType m_type = TileType.Regular;
@@ -368,4 +414,6 @@ public class TileScript : MonoBehaviour {
     */
     int m_side1 = 5;
     int m_side2 = 5;
+
+    Vector3 m_position = new Vector3();
 }
