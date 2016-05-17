@@ -24,6 +24,9 @@ public class GameScript : MonoBehaviour {
 
     public Camera m_mainCamera;
 
+    Vector3 m_startTilePosition = new Vector3(-1, -1, -1);
+    int m_startSideDirection = 0;
+
     // Use this for initialization
     void Start () {
         //Intialize the map
@@ -60,6 +63,16 @@ public class GameScript : MonoBehaviour {
             RaycastHit rayHitInfo;
             Physics.Raycast(ray, out rayHitInfo);
             rayHitInfo.transform.gameObject.GetComponent<TileScript>().onMouseHit();
+            if (checkPathCreated(m_startTilePosition, m_startSideDirection))
+            {
+                //User finish game so switch scene
+                //For now...
+                Debug.Log("You Win");
+            }
+            else
+            {
+                Debug.Log("No Connection Yet");
+            }
         }
         //Keyboard inputs
         if (Input.GetKeyDown(KeyCode.W))
@@ -115,6 +128,12 @@ public class GameScript : MonoBehaviour {
             //Add the tile to the list
             m_tiles.Add("Row: " + tilePosition.y + " Column: " + tilePosition.x, tile);
             currentTileNode = currentTileNode.NextSibling;
+
+            //Check to see if the tile is start position
+            if (m_startTilePosition == new Vector3(-1, -1, -1) && tile.GetComponent<TileScript>().checkType("Start"))
+            {
+                m_startTilePosition = tilePosition;
+            }
         }
     }
 
@@ -263,5 +282,114 @@ public class GameScript : MonoBehaviour {
 
         //No other tile (not possible)
         return new Vector3(-1, -1, -1);
+    }
+
+    bool checkPathCreated(Vector3 tilePosition, int tileSide)
+    {
+        //Edge case
+        //Left side
+        int result;
+        if (tilePosition.x != 0)
+        {
+            if (tileSide == 3)
+            {
+                //Get the next side it will go off from
+                result = m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x - 1)].GetComponent<TileScript>().doTileConnect(
+                    tileSide);
+                Debug.Log(result);
+                //if there is a connection then
+                if (result != 5)
+                {
+                    //Check to see if the tile was the finish tile 
+                    if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x - 1)].GetComponent<TileScript>().checkType("Finish"))
+                    {
+                        return true;
+                    }
+                    //Call to check the next tile in its path
+                    return checkPathCreated(new Vector3(tilePosition.x - 1, tilePosition.y, tilePosition.z), result);
+                }
+                //No connection
+                return false;
+            }
+        }
+        //Right side
+        if (tilePosition.x != MAX_SIZE - 1)
+        {
+            if (tileSide == 1)
+            {
+                //Get the next side it will go off from
+                result = m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x + 1)].GetComponent<TileScript>().doTileConnect(
+                    tileSide);
+                Debug.Log(result);
+                //if there is a connection then
+                if (result != 5)
+                {
+                    //Check to see if the tile was the finish tile 
+                    if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x + 1)].GetComponent<TileScript>().checkType("Finish"))
+                    {
+                        return true;
+                    }
+                    //Call to check the next tile in its path
+                    return checkPathCreated(new Vector3(tilePosition.x + 1, tilePosition.y, tilePosition.z), result);
+                }
+                //No connection
+                return false;
+            }
+        }
+        //Top side
+        if (tilePosition.y != MAX_SIZE - 1)
+        {
+            if (tileSide == 0)
+            {
+                //Get the next side it will go off from
+                result = m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().doTileConnect(
+                    tileSide);
+                Debug.Log(result);
+                //if there is a connection then
+                if (result != 5)
+                {
+                    //Check to see if the tile was the finish tile 
+                    if (m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType("Finish"))
+                    {
+                        return true;
+                    }
+                    //Call to check the next tile in its path
+                    return checkPathCreated(new Vector3(tilePosition.x, tilePosition.y + 1, tilePosition.z), result);
+                }
+                //No connection
+                return false;
+            }
+        }
+        //Bottom side
+        if (tilePosition.y != 0)
+        {
+            if (tileSide == 2)
+            {
+                //Get the next side it will go off from
+                result = m_tiles["Row: " + (tilePosition.y - 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().doTileConnect(
+                    tileSide);
+                Debug.Log(result);
+                //if there is a connection then
+                if (result != 5)
+                {
+                    //Check to see if the tile was the finish tile 
+                    if (m_tiles["Row: " + (tilePosition.y - 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType("Finish"))
+                    {
+                        return true;
+                    }
+                    //Call to check the next tile in its path
+                    return checkPathCreated(new Vector3(tilePosition.x, tilePosition.y - 1, tilePosition.z), result);
+                }
+                //No connection
+                return false;
+            }
+        }
+        return false;
+    }
+
+    bool doTileConnect(Vector3 tilePosition)
+    {
+
+        return false;
     }
 }

@@ -391,23 +391,106 @@ public class TileScript : MonoBehaviour {
 
     public bool checkType(string typeName)
     {
-        if (typeName == "Regular")
+        if (typeName == "Start")
+        {
+            return m_type == TileType.Start;
+        }
+        else if (typeName == "Finish")
+        {
+            return m_type == TileType.Finish;
+        }
+        else if(typeName == "Regular")
         {
             return m_type == TileType.Regular;
         }
-        if (typeName == "Moving")
+        else if(typeName == "Moving")
         {
             return m_type == TileType.Moving;
         }
-        if (typeName == "Rotating")
+        else if(typeName == "Rotating")
         {
             return m_type == TileType.Rotating;
         }
-        if (typeName == "MultiRotate")
+        else if(typeName == "MultiRotate")
         {
             return m_type == TileType.MultiRotate;
         }
         return false;
+    }
+
+    public int doTileConnect(int side)
+    {
+        if (m_shape != "Empty")
+        {
+            //Cross shape
+            if (m_side1 == 4 || m_side2 == 4)
+            {
+                //Return the opposite side
+                return (side + 2) % 4;
+            }
+            //Side is coming in from the bottom 
+            if (side == 0)
+            {
+                //if side connect then return the other side of connection
+                if (m_side1 == 2)
+                {
+                    return m_side2;
+                }
+                if (m_side2 == 2)
+                {
+                    return m_side1;
+                }
+                //No connection
+                return 5;
+            }
+            //Side is coming in from the left 
+            if (side == 1)
+            {
+                //if side connect then return the other side of connection
+                if (m_side1 == 3)
+                {
+                    return m_side2;
+                }
+                if (m_side2 == 3)
+                {
+                    return m_side1;
+                }
+                //No connection
+                return 5;
+            }
+            //Side is coming in from the top 
+            if (side == 2)
+            {
+                //if side connect then return the other side of connection
+                if (m_side1 == 0)
+                {
+                    return m_side2;
+                }
+                if (m_side2 == 0)
+                {
+                    return m_side1;
+                }
+                //No connection
+                return 5;
+            }
+            //Side is coming in from the right 
+            if (side == 3)
+            {
+                //if side connect then return the other side of connection
+                if (m_side1 == 1)
+                {
+                    return m_side2;
+                }
+                if (m_side2 == 1)
+                {
+                    return m_side1;
+                }
+                //No connection
+                return 5;
+            }
+        }
+        //Shape is empty no connection
+        return 5;
     }
 
     //Properties
