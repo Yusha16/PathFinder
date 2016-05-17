@@ -49,10 +49,20 @@ public class TileScript : MonoBehaviour {
         if (tileType == "Start")
         {
             m_type = TileType.Start;
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().StartTile;
+            m_shape = "Empty";
+            m_side1 = 4;
+            m_side2 = 4;
+            return;
         }
         else if (tileType == "Finish")
         {
             m_type = TileType.Finish;
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().FinishTile;
+            m_shape = "Empty";
+            m_side1 = 4;
+            m_side2 = 4;
+            return;
         }
         else if (tileType == "Regular")
         {
@@ -70,8 +80,6 @@ public class TileScript : MonoBehaviour {
         {
             m_type = TileType.MultiRotate;
         }
-
-
 
         if (shape == "BottomLeft")
         {
@@ -205,15 +213,7 @@ public class TileScript : MonoBehaviour {
         m_shape = "Empty";
         m_side1 = 5;
         m_side2 = 5;
-        if (m_type == TileType.Start)
-        {
-            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().StartTile;
-        }
-        else if (m_type == TileType.Finish)
-        {
-            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().FinishTile;
-        }
-        else if (m_type == TileType.Regular)
+        if (m_type == TileType.Regular)
         {
             GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RegEmpty;
         }

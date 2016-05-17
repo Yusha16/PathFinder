@@ -173,15 +173,15 @@
 			<y>4</y>
 		</Position>
 		<Type>Regular</Type>
-		<Shape>Cross</Shape>
+		<Shape>Empty</Shape>
 	</Tile>
 	<Tile>
 		<Position>
 			<x>2</x>
 			<y>4</y>
 		</Position>
-		<Type>Regular</Type>
-		<Shape>Cross</Shape>
+		<Type>Finish</Type>
+		<Shape>Empty</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -189,7 +189,7 @@
 			<y>4</y>
 		</Position>
 		<Type>Regular</Type>
-		<Shape>Cross</Shape>
+		<Shape>Empty</Shape>
 	</Tile>
 	<Tile>
 	<Position>
