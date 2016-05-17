@@ -22,6 +22,8 @@ public class GameScript : MonoBehaviour {
     public GameObject m_tileObject;
     Vector3 SIZE_OF_SPRITE;
 
+    public Camera m_mainCamera;
+
     // Use this for initialization
     void Start () {
         //Intialize the map
@@ -59,7 +61,24 @@ public class GameScript : MonoBehaviour {
             Physics.Raycast(ray, out rayHitInfo);
             rayHitInfo.transform.gameObject.GetComponent<TileScript>().onMouseHit();
         }
-	}
+        //Keyboard inputs
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            m_mainCamera.transform.Translate(0, 1, 0);
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            m_mainCamera.transform.Translate(0, -1, 0);
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            m_mainCamera.transform.Translate(-1, 0, 0);
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            m_mainCamera.transform.Translate(1, 0, 0);
+        }
+    }
 
     void loadTile(string filepath)
     {
