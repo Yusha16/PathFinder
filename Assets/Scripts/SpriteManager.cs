@@ -13,6 +13,10 @@ public class SpriteManager : MonoBehaviour{
 	
 	}
 
+    //The Start and end goal tile
+    public Sprite StartTile;
+    public Sprite FinishTile;
+
     //Regular Types
     public Sprite RegBottomAndLeft;
     public Sprite RegBottomAndRight;

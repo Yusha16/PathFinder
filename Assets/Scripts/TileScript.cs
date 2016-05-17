@@ -4,6 +4,8 @@ using System.Collections;
 //Tile type flag
 enum TileType
 {
+    Start, 
+    Finish,
     Regular,
     Moving,
     Rotating,
@@ -44,7 +46,15 @@ public class TileScript : MonoBehaviour {
     //Set the tile type from the filename and set all the properties of the specific type
     public void setTile(string tileType, string shape)
     {
-        if (tileType == "Regular")
+        if (tileType == "Start")
+        {
+            m_type = TileType.Start;
+        }
+        else if (tileType == "Finish")
+        {
+            m_type = TileType.Finish;
+        }
+        else if (tileType == "Regular")
         {
             m_type = TileType.Regular;
         }
@@ -195,7 +205,15 @@ public class TileScript : MonoBehaviour {
         m_shape = "Empty";
         m_side1 = 5;
         m_side2 = 5;
-        if (m_type == TileType.Regular)
+        if (m_type == TileType.Start)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().StartTile;
+        }
+        else if (m_type == TileType.Finish)
+        {
+            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().FinishTile;
+        }
+        else if (m_type == TileType.Regular)
         {
             GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RegEmpty;
         }
