@@ -32,6 +32,7 @@ public class TileScript : MonoBehaviour {
         else if (m_type == TileType.MultiRotate)
         {
             //Call the game scene and have it swap the multi tile
+            GameObject.Find("Game Background").GetComponent<GameScript>().MultipleRotate(name);
         }
         else if (m_type == TileType.Moving)
         {

@@ -4,6 +4,14 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Text;
 
+enum Corners
+{
+    TopLeft,
+    TopRight,
+    BottomRight,
+    BottomLeft
+}
+
 public class GameScript : MonoBehaviour {
 
     //Map of tile data
@@ -91,26 +99,112 @@ public class GameScript : MonoBehaviour {
         }
     }
 
-    void MultipleRotate()
+    public void MultipleRotate(string tileMoveName)
     {
+        Vector3 tilePosition = m_tiles[tileMoveName].GetComponent<TileScript>().getTilePosition();
+        Corners tileCornerPosition = FindTilesCornerMultiRotation(tilePosition);
+        Vector3 topLeftCorner, topRightCorner, bottomLeftCorner, bottomRightCorner;
+        //Determine the corner position
+        if (tileCornerPosition == Corners.TopLeft)
+        {
+            topLeftCorner = tilePosition;
+            topRightCorner = new Vector3(tilePosition.x + 1, tilePosition.y, tilePosition.z);
+            bottomLeftCorner = new Vector3(tilePosition.x, tilePosition.y - 1, tilePosition.z);
+            bottomRightCorner = new Vector3(tilePosition.x + 1, tilePosition.y - 1, tilePosition.z);
+        }
+        else if (tileCornerPosition == Corners.TopRight)
+        {
+            topLeftCorner = new Vector3(tilePosition.x - 1, tilePosition.y, tilePosition.z);
+            topRightCorner = tilePosition;
+            bottomLeftCorner = new Vector3(tilePosition.x - 1, tilePosition.y - 1, tilePosition.z);
+            bottomRightCorner = new Vector3(tilePosition.x, tilePosition.y - 1, tilePosition.z);
+        }
+        else if (tileCornerPosition == Corners.BottomLeft)
+        {
+            topLeftCorner = new Vector3(tilePosition.x, tilePosition.y + 1, tilePosition.z);
+            topRightCorner = new Vector3(tilePosition.x + 1, tilePosition.y + 1, tilePosition.z);
+            bottomLeftCorner = tilePosition;
+            bottomRightCorner = new Vector3(tilePosition.x + 1, tilePosition.y, tilePosition.z);
+        }
+        else
+        {
+            topLeftCorner = new Vector3(tilePosition.x - 1, tilePosition.y + 1, tilePosition.z);
+            topRightCorner = new Vector3(tilePosition.x, tilePosition.y + 1, tilePosition.z);
+            bottomLeftCorner = new Vector3(tilePosition.x - 1, tilePosition.y, tilePosition.z);
+            bottomRightCorner = tilePosition;
+        }
 
+        //Swap the tiles
+        SwapTile(topLeftCorner, topRightCorner);
+        SwapTile(topLeftCorner, bottomRightCorner);
+        SwapTile(topLeftCorner, bottomLeftCorner);
+    }
+
+    Corners FindTilesCornerMultiRotation(Vector3 tilePosition)
+    {
+        //Assume the MultiRotation Tiles is not on the edges of the Level
+
+        //is the tile on the right a MultiRotate Tile
+        if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x + 1)].GetComponent<TileScript>().checkType("MultiRotate"))
+        {
+            //is the tile on the top a MultiRotate Tile
+            if (m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType("MultiRotate"))
+            {
+                return Corners.BottomLeft;
+            }
+            //the tile of the MultiRotate is on the bottom side
+            else
+            {
+                return Corners.TopLeft;
+            }
+        }
+        //the tile of the MultiRotate is on the left side 
+        else
+        {
+            //is the tile on the top a MultiRotate Tile
+            if (m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType("MultiRotate"))
+            {
+                return Corners.BottomRight;
+            }
+            //the tile of the MultiRotate is on the bottom side
+            else
+            {
+                return Corners.TopRight;
+            }
+        }
+    }
+
+    void SwapTile(Vector3 tilePosition1, Vector3 tilePosition2)
+    {
+        //Change the tile position of the object
+        m_tiles["Row: " + tilePosition1.y + " Column: " + tilePosition1.x].GetComponent<TileScript>().setTilePosition(tilePosition2);
+        m_tiles["Row: " + tilePosition1.y + " Column: " + tilePosition1.x].transform.position = new Vector3(tilePosition2.x * SIZE_OF_SPRITE.x,
+                tilePosition2.y * SIZE_OF_SPRITE.y, 0);
+        m_tiles["Row: " + tilePosition2.y + " Column: " + tilePosition2.x].GetComponent<TileScript>().setTilePosition(tilePosition1);
+        m_tiles["Row: " + tilePosition2.y + " Column: " + tilePosition2.x].transform.position = new Vector3(tilePosition1.x * SIZE_OF_SPRITE.x,
+                tilePosition1.y * SIZE_OF_SPRITE.y, 0);
+        //Change the data in the map
+        GameObject tileObject = m_tiles["Row: " + tilePosition1.y + " Column: " + tilePosition1.x];
+        m_tiles["Row: " + tilePosition1.y + " Column: " + tilePosition1.x] = m_tiles["Row: " + tilePosition2.y + " Column: " + tilePosition2.x];
+        m_tiles["Row: " + tilePosition2.y + " Column: " + tilePosition2.x] = tileObject;
     }
 
     public void Move(string tileMoveName)
     {
         Vector3 tilePosition = m_tiles[tileMoveName].GetComponent<TileScript>().getTilePosition();
         Vector3 otherMoveTilePosition = findOtherMoveTile(tilePosition);
-        //Change the tile position of the object
-        m_tiles[tileMoveName].GetComponent<TileScript>().setTilePosition(otherMoveTilePosition);
-        m_tiles[tileMoveName].transform.position = new Vector3(otherMoveTilePosition.x * SIZE_OF_SPRITE.x,
-                otherMoveTilePosition.y * SIZE_OF_SPRITE.y, 0);
-        m_tiles["Row: " + otherMoveTilePosition.y + " Column: " + otherMoveTilePosition.x].GetComponent<TileScript>().setTilePosition(tilePosition);
-        m_tiles["Row: " + otherMoveTilePosition.y + " Column: " + otherMoveTilePosition.x].transform.position = new Vector3(tilePosition.x * SIZE_OF_SPRITE.x,
-                tilePosition.y * SIZE_OF_SPRITE.y, 0);
-        //Change the data in the map
-        GameObject tileObject = m_tiles[tileMoveName];
-        m_tiles[tileMoveName] = m_tiles["Row: " + otherMoveTilePosition.y + " Column: " + otherMoveTilePosition.x];
-        m_tiles["Row: " + otherMoveTilePosition.y + " Column: " + otherMoveTilePosition.x] = tileObject;
+        SwapTile(tilePosition, otherMoveTilePosition);
+        ////Change the tile position of the object
+        //m_tiles[tileMoveName].GetComponent<TileScript>().setTilePosition(otherMoveTilePosition);
+        //m_tiles[tileMoveName].transform.position = new Vector3(otherMoveTilePosition.x * SIZE_OF_SPRITE.x,
+        //        otherMoveTilePosition.y * SIZE_OF_SPRITE.y, 0);
+        //m_tiles["Row: " + otherMoveTilePosition.y + " Column: " + otherMoveTilePosition.x].GetComponent<TileScript>().setTilePosition(tilePosition);
+        //m_tiles["Row: " + otherMoveTilePosition.y + " Column: " + otherMoveTilePosition.x].transform.position = new Vector3(tilePosition.x * SIZE_OF_SPRITE.x,
+        //        tilePosition.y * SIZE_OF_SPRITE.y, 0);
+        ////Change the data in the map
+        //GameObject tileObject = m_tiles[tileMoveName];
+        //m_tiles[tileMoveName] = m_tiles["Row: " + otherMoveTilePosition.y + " Column: " + otherMoveTilePosition.x];
+        //m_tiles["Row: " + otherMoveTilePosition.y + " Column: " + otherMoveTilePosition.x] = tileObject;
     }
 
     Vector3 findOtherMoveTile(Vector3 tilePosition)
