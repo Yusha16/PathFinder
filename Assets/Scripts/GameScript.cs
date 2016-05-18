@@ -63,41 +63,44 @@ public class GameScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //User Pressed the left mouse button
-        if (Input.GetMouseButtonDown(0))
+        if (m_inGame)
         {
-            //Shoot a ray and find a tile to fire event
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit rayHitInfo;
-            Physics.Raycast(ray, out rayHitInfo);
-            rayHitInfo.transform.gameObject.GetComponent<TileScript>().onMouseHit();
-            if (checkPathCreated(m_startTilePosition, m_startSideDirection))
+            //User Pressed the left mouse button
+            if (Input.GetMouseButtonDown(0))
             {
-                //User finish game so switch scene
-                //For now...
-                Debug.Log("You Win");
+                //Shoot a ray and find a tile to fire event
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit rayHitInfo;
+                Physics.Raycast(ray, out rayHitInfo);
+                rayHitInfo.transform.gameObject.GetComponent<TileScript>().onMouseHit();
+                if (checkPathCreated(m_startTilePosition, m_startSideDirection))
+                {
+                    //User finish game so switch scene
+                    //For now...
+                    Debug.Log("You Win");
+                }
+                else
+                {
+                    Debug.Log("No Connection Yet");
+                }
             }
-            else
+            //Keyboard inputs
+            if (Input.GetKeyDown(KeyCode.W))
             {
-                Debug.Log("No Connection Yet");
+                m_mainCamera.transform.Translate(0, 1, 0);
             }
-        }
-        //Keyboard inputs
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            m_mainCamera.transform.Translate(0, 1, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            m_mainCamera.transform.Translate(0, -1, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            m_mainCamera.transform.Translate(-1, 0, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            m_mainCamera.transform.Translate(1, 0, 0);
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                m_mainCamera.transform.Translate(0, -1, 0);
+            }
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                m_mainCamera.transform.Translate(-1, 0, 0);
+            }
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                m_mainCamera.transform.Translate(1, 0, 0);
+            }
         }
     }
 

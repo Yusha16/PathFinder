@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-enum ButtonTypes
+public enum ButtonTypes
 {
     Start,
     Exit,
@@ -21,27 +21,24 @@ public class ButtonScript : MonoBehaviour {
 	
 	}
 
-    public void SetButton(string buttonName)
+    public void SetButton(ButtonTypes buttonType, string buttonName)
     {
+        m_buttonType = buttonType;
         m_buttonText = buttonName;
-        if (buttonName == "Start")
+        if (m_buttonType == ButtonTypes.Start)
         {
-            m_buttonType = ButtonTypes.Start;
             GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().StartButton;
         }
-        if (buttonName == "Exit")
+        if (m_buttonType == ButtonTypes.Exit)
         {
-            m_buttonType = ButtonTypes.Exit;
             GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().ExitButton;
         }
-        if (buttonName == "Level")
+        if (m_buttonType == ButtonTypes.Level)
         {
-            m_buttonType = ButtonTypes.Level;
             DetermineLevelSprite();
         }
-        if (buttonName == "Options")
+        if (m_buttonType == ButtonTypes.Options)
         {
-            m_buttonType = ButtonTypes.Options;
             GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().OptionsButton;
         }
     }
@@ -50,7 +47,7 @@ public class ButtonScript : MonoBehaviour {
     {
         if (m_buttonType == ButtonTypes.Start)
         {
-            GameObject.Find("GameBackground").GetComponent<LevelScript>().StartLevelSelect();
+            GameObject.Find("Game Background").GetComponent<LevelScript>().StartLevelSelect();
         }
         if (m_buttonType == ButtonTypes.Exit)
         {
@@ -58,7 +55,7 @@ public class ButtonScript : MonoBehaviour {
         }
         if (m_buttonType == ButtonTypes.Level)
         {
-            GameObject.Find("GameBackground").GetComponent<LevelScript>().StartLevel(m_buttonText);
+            GameObject.Find("Game Background").GetComponent<LevelScript>().StartLevel(m_buttonText);
         }
     }
 
