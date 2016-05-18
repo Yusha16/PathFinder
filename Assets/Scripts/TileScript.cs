@@ -50,7 +50,7 @@ public class TileScript : MonoBehaviour {
         {
             m_type = TileType.Start;
             GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().StartTile;
-            m_shape = "Empty";
+            m_shape = "Start";
             m_side1 = 4;
             m_side2 = 4;
             return;
@@ -59,7 +59,7 @@ public class TileScript : MonoBehaviour {
         {
             m_type = TileType.Finish;
             GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().FinishTile;
-            m_shape = "Empty";
+            m_shape = "Finish";
             m_side1 = 4;
             m_side2 = 4;
             return;
@@ -425,8 +425,8 @@ public class TileScript : MonoBehaviour {
             //Cross shape
             if (m_side1 == 4 || m_side2 == 4)
             {
-                //Return the opposite side
-                return (side + 2) % 4;
+                //Return the side because you will be entering from the same side again to the next tile
+                return side;
             }
             //Side is coming in from the bottom 
             if (side == 0)
