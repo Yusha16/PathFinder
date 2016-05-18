@@ -53,7 +53,7 @@
 			<y>1</y>
 		</Position>
 		<Type>Regular</Type>
-		<Shape>Cross</Shape>
+		<Shape>TopRight</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -61,7 +61,7 @@
 			<y>1</y>
 		</Position>
 		<Type>MultiRotate</Type>
-		<Shape>LineDown</Shape>
+		<Shape>BottomLeft</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -101,7 +101,7 @@
 			<y>2</y>
 		</Position>
 		<Type>MultiRotate</Type>
-		<Shape>TopRight</Shape>
+		<Shape>LineDown</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -109,7 +109,7 @@
 			<y>2</y>
 		</Position>
 		<Type>MultiRotate</Type>
-		<Shape>LineAcross</Shape>
+		<Shape>TopLeft</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -133,7 +133,7 @@
 			<y>3</y>
 		</Position>
 		<Type>Moving</Type>
-		<Shape>Cross</Shape>
+		<Shape>TopRight</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -149,7 +149,7 @@
 			<y>3</y>
 		</Position>
 		<Type>Regular</Type>
-		<Shape>Cross</Shape>
+		<Shape>BottomLeft</Shape>
 	</Tile>
 	<Tile>
 		<Position>

@@ -296,7 +296,7 @@ public class GameScript : MonoBehaviour {
                 //Get the next side it will go off from
                 result = m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x - 1)].GetComponent<TileScript>().doTileConnect(
                     tileSide);
-                Debug.Log("Left: " + result);
+                //Debug.Log("Left: " + result);
                 //if there is a connection then
                 if (result != 5)
                 {
@@ -320,7 +320,7 @@ public class GameScript : MonoBehaviour {
                 //Get the next side it will go off from
                 result = m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x + 1)].GetComponent<TileScript>().doTileConnect(
                     tileSide);
-                Debug.Log("Right: " + result);
+                //Debug.Log("Right: " + result);
                 //if there is a connection then
                 if (result != 5)
                 {
@@ -344,7 +344,7 @@ public class GameScript : MonoBehaviour {
                 //Get the next side it will go off from
                 result = m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().doTileConnect(
                     tileSide);
-                Debug.Log("Top: " + result);
+                //Debug.Log("Top: " + result);
                 //if there is a connection then
                 if (result != 5)
                 {
@@ -368,7 +368,7 @@ public class GameScript : MonoBehaviour {
                 //Get the next side it will go off from
                 result = m_tiles["Row: " + (tilePosition.y - 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().doTileConnect(
                     tileSide);
-                Debug.Log("Bottom: " + result);
+                //Debug.Log("Bottom: " + result);
                 //if there is a connection then
                 if (result != 5)
                 {
