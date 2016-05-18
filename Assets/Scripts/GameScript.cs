@@ -27,6 +27,8 @@ public class GameScript : MonoBehaviour {
     Vector3 m_startTilePosition = new Vector3(-1, -1, -1);
     int m_startSideDirection = 0;
 
+    bool m_inGame = false;
+
     // Use this for initialization
     void Start () {
         //Intialize the map
@@ -50,7 +52,13 @@ public class GameScript : MonoBehaviour {
         //    }
         //}
 
-        loadTile("Assets/LevelData/Level1.xml");
+        
+    }
+
+    public void StartGame(string level)
+    {
+        loadTile("Assets/LevelData/" + level + ".xml");
+        m_inGame = true;
     }
 	
 	// Update is called once per frame

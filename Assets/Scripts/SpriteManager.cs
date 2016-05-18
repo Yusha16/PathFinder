@@ -13,6 +13,14 @@ public class SpriteManager : MonoBehaviour{
 	
 	}
 
+    //The Buttons
+    public Sprite StartButton;
+    public Sprite ExitButton;
+    public Sprite OptionsButton;
+    public Sprite Level1Button;
+    public Sprite Level2Button;
+    public Sprite Level3Button;
+
     //The Start and end goal tile
     public Sprite StartTile;
     public Sprite FinishTile;
