@@ -72,16 +72,32 @@ public class GameScript : MonoBehaviour {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit rayHitInfo;
                 Physics.Raycast(ray, out rayHitInfo);
-                rayHitInfo.transform.gameObject.GetComponent<TileScript>().onMouseHit();
-                if (checkPathCreated(m_startTilePosition, m_startSideDirection))
+                //Hit something then
+                if (rayHitInfo.transform != null)
                 {
-                    //User finish game so switch scene
-                    //For now...
-                    Debug.Log("You Win");
-                }
-                else
-                {
-                    Debug.Log("No Connection Yet");
+                    TileScript tileScript = rayHitInfo.transform.gameObject.GetComponent<TileScript>();
+                    if (tileScript != null)
+                    {
+                        tileScript.onMouseHit();
+                        if (checkPathCreated(m_startTilePosition, m_startSideDirection))
+                        {
+                            //User finish game so switch scene
+                            //For now...
+                            Debug.Log("You Win");
+                            //Start the game
+                            GameObject.Find("Game Background").GetComponent<LevelScript>().StartLevelSelect();
+                            //Delete all the gameobject in the scene
+                            foreach (var go in m_tiles.Values)
+                                Destroy(go);
+                            //Clear the map    
+                            m_tiles.Clear();
+                            m_inGame = false;
+                        }
+                        else
+                        {
+                            Debug.Log("No Connection Yet");
+                        }
+                    }
                 }
             }
             //Keyboard inputs

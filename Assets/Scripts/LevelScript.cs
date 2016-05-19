@@ -26,20 +26,36 @@ public class LevelScript : MonoBehaviour {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayHitInfo;
             Physics.Raycast(ray, out rayHitInfo);
-            ButtonScript buttonScript = rayHitInfo.transform.gameObject.GetComponent<ButtonScript>();
-            if (buttonScript != null)
-            { 
-                buttonScript.OnMouseHit();
+            //Hit something then
+            if (rayHitInfo.transform != null)
+            {
+                ButtonScript buttonScript = rayHitInfo.transform.gameObject.GetComponent<ButtonScript>();
+                if (buttonScript != null)
+                {
+                    buttonScript.OnMouseHit();
+                }
             }
         }
     }
     public void StartLevelSelect()
     {
-        Destroy(m_buttons["StartButton"]);
-        m_buttons.Remove("StartButton");
-        m_buttons["ExitButton"].transform.position = new Vector3(5, 2, 0.0f);
         //Create the buttons for the Levels and the Exit
-        GameObject button = Instantiate(m_buttonPrefab);
+        GameObject button;
+
+        if (m_buttons.ContainsKey("StartButton"))
+        {
+            Destroy(m_buttons["StartButton"]);
+            m_buttons.Remove("StartButton");
+        }
+        if (!m_buttons.ContainsKey("ExitButton"))
+        {
+            button = Instantiate(m_buttonPrefab);
+            button.GetComponent<ButtonScript>().SetButton(ButtonTypes.Exit, "Exit");
+            button.transform.position = new Vector3(10, 5, 0);
+            m_buttons.Add("ExitButton", button);
+        }
+        m_buttons["ExitButton"].transform.position = new Vector3(5, 2, 0.0f);
+        button = Instantiate(m_buttonPrefab);
         button.GetComponent<ButtonScript>().SetButton(ButtonTypes.Level, "Level1");
         button.transform.position = new Vector3(0, 5, 0);
         m_buttons.Add("Level1", button);
