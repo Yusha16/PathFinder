@@ -37,6 +37,7 @@ public class LevelScript : MonoBehaviour {
             }
         }
     }
+
     public void StartLevelSelect()
     {
         //Create the buttons for the Levels and the Exit
