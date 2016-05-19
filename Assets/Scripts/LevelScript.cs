@@ -55,8 +55,12 @@ public class LevelScript : MonoBehaviour {
 
     public void StartLevel(string level)
     {
+        //Start the game
         GameObject.Find("Game Background").GetComponent<GameScript>().StartGame(level);
-        
+        //Delete all the gameobject in the scene
+        foreach (var go in m_buttons.Values)
+            Destroy(go);
+        //Clear the map    
         m_buttons.Clear();
     }
 
