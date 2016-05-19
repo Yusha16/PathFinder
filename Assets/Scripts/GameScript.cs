@@ -18,7 +18,7 @@ public class GameScript : MonoBehaviour {
     Dictionary<string, GameObject> m_tiles;
     //List<GameObject> m_tiles;
 
-    const int MAX_SIZE = 5;
+    int MAX_SIZE = 0;
     public GameObject m_tileObject;
     Vector3 SIZE_OF_SPRITE;
 
@@ -124,6 +124,10 @@ public class GameScript : MonoBehaviour {
     {
         XmlDocument xmlFile = new XmlDocument();
         xmlFile.Load(filepath);
+        //Set the Max Size and the start direction
+        MAX_SIZE = int.Parse(xmlFile.FirstChild.Attributes.Item(0).Value);
+        m_startSideDirection = int.Parse(xmlFile.FirstChild.Attributes.Item(1).Value);
+
         GameObject tile;
         //Go to the First Tile Tag node
         XmlNode currentTileNode = xmlFile.FirstChild.FirstChild;
