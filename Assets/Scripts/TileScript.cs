@@ -9,7 +9,8 @@ enum TileType
     Regular,
     Moving,
     Rotating,
-    MultiRotate
+    MultiRotate,
+    Warp
 }
 
 public class TileScript : MonoBehaviour {
