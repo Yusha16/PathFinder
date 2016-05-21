@@ -336,8 +336,15 @@ public class GameScript : MonoBehaviour {
                     {
                         return true;
                     }
-                    //Call to check the next tile in its path
-                    return checkPathCreated(new Vector3(tilePosition.x - 1, tilePosition.y, tilePosition.z), result);
+                    else if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x - 1)].GetComponent<TileScript>().checkType("Warp"))
+                    {
+                        return checkPathCreated(findOtherWarpTile(new Vector3(tilePosition.x - 1, tilePosition.y, tilePosition.z)), result);
+                    }
+                    else
+                    {
+                        //Call to check the next tile in its path
+                        return checkPathCreated(new Vector3(tilePosition.x - 1, tilePosition.y, tilePosition.z), result);
+                    }
                 }
                 //No connection
                 return false;
@@ -360,8 +367,15 @@ public class GameScript : MonoBehaviour {
                     {
                         return true;
                     }
-                    //Call to check the next tile in its path
-                    return checkPathCreated(new Vector3(tilePosition.x + 1, tilePosition.y, tilePosition.z), result);
+                    else if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x + 1)].GetComponent<TileScript>().checkType("Warp"))
+                    {
+                        return checkPathCreated(findOtherWarpTile(new Vector3(tilePosition.x + 1, tilePosition.y, tilePosition.z)), result);
+                    }
+                    else
+                    {
+                        //Call to check the next tile in its path
+                        return checkPathCreated(new Vector3(tilePosition.x + 1, tilePosition.y, tilePosition.z), result);
+                    }
                 }
                 //No connection
                 return false;
@@ -384,8 +398,15 @@ public class GameScript : MonoBehaviour {
                     {
                         return true;
                     }
-                    //Call to check the next tile in its path
-                    return checkPathCreated(new Vector3(tilePosition.x, tilePosition.y + 1, tilePosition.z), result);
+                    else if (m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType("Warp"))
+                    {
+                        return checkPathCreated(findOtherWarpTile(new Vector3(tilePosition.x, tilePosition.y + 1, tilePosition.z)), result);
+                    }
+                    else
+                    {
+                        //Call to check the next tile in its path
+                        return checkPathCreated(new Vector3(tilePosition.x, tilePosition.y + 1, tilePosition.z), result);
+                    }
                 }
                 //No connection
                 return false;
@@ -408,14 +429,40 @@ public class GameScript : MonoBehaviour {
                     {
                         return true;
                     }
-                    //Call to check the next tile in its path
-                    return checkPathCreated(new Vector3(tilePosition.x, tilePosition.y - 1, tilePosition.z), result);
+                    else if (m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType("Warp"))
+                    {
+                        return checkPathCreated(findOtherWarpTile(new Vector3(tilePosition.x, tilePosition.y + 1, tilePosition.z)), result);
+                    }
+                    else
+                    {
+                        //Call to check the next tile in its path
+                        return checkPathCreated(new Vector3(tilePosition.x, tilePosition.y - 1, tilePosition.z), result);
+                    }
                 }
                 //No connection
                 return false;
             }
         }
         return false;
+    }
+
+    Vector3 findOtherWarpTile(Vector3 tilePosition)
+    {
+        for (int y = 0; y < MAX_SIZE; y++)
+        {
+            for (int x = 0; x < MAX_SIZE; x++)
+            {
+                if (tilePosition.x != x && tilePosition.y != y)
+                {
+                    if (m_tiles["Row: " + y + " Column: " + x].GetComponent<TileScript>().checkType("Warp"))
+                    {
+                        return new Vector3(x, y, tilePosition.z);
+                    }
+                }
+            }
+        }
+        //Never going to happen, but just for error checking 
+        return new Vector3();
     }
 
     bool doTileConnect(Vector3 tilePosition)
