@@ -158,16 +158,16 @@
 			<x>1</x>
 			<y>2</y>
 		</Position>
-		<Type>Rotating</Type>
-		<Shape>BottomRight</Shape>
+		<Type>Regular</Type>
+		<Shape>LineDown</Shape>
 	</Tile>
 	<Tile>
 		<Position>
 			<x>2</x>
 			<y>2</y>
 		</Position>
-		<Type>Rotating</Type>
-		<Shape>TopLeft</Shape>
+		<Type>Regular</Type>
+		<Shape>TopRight</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -183,7 +183,7 @@
 			<y>2</y>
 		</Position>
 		<Type>MultiRotate</Type>
-		<Shape>LineDown</Shape>
+		<Shape>BottomLeft</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -191,7 +191,7 @@
 			<y>2</y>
 		</Position>
 		<Type>MultiRotate</Type>
-		<Shape>BottomRight</Shape>
+		<Shape>LineAcross</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -231,8 +231,8 @@
 			<x>1</x>
 			<y>3</y>
 		</Position>
-		<Type>Rotating</Type>
-		<Shape>BottomRight</Shape>
+		<Type>Regular</Type>
+		<Shape>LineDown</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -256,7 +256,7 @@
 			<y>3</y>
 		</Position>
 		<Type>MultiRotate</Type>
-		<Shape>BottomLeft</Shape>
+		<Shape>LineDown</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -264,7 +264,7 @@
 			<y>3</y>
 		</Position>
 		<Type>MultiRotate</Type>
-		<Shape>TopRight</Shape>
+		<Shape>BottomLeft</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -272,7 +272,7 @@
 			<y>3</y>
 		</Position>
 		<Type>Regular</Type>
-		<Shape>BottomLeft</Shape>
+		<Shape>LineDown</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -304,16 +304,16 @@
 			<x>1</x>
 			<y>4</y>
 		</Position>
-		<Type>MultiRotate</Type>
-		<Shape>BottomRight</Shape>
+		<Type>Regular</Type>
+		<Shape>LineDown</Shape>
 	</Tile>
 	<Tile>
 		<Position>
 			<x>2</x>
 			<y>4</y>
 		</Position>
-		<Type>MultiRotate</Type>
-		<Shape>TopLeft</Shape>
+		<Type>Regular</Type>
+		<Shape>LineDown</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -321,22 +321,22 @@
 			<y>4</y>
 		</Position>
 		<Type>Regular</Type>
-		<Shape>BottomLeft</Shape>
+		<Shape>LineDown</Shape>
 	</Tile>
 	<Tile>
 		<Position>
 			<x>4</x>
 			<y>4</y>
 		</Position>
-		<Type>Rotating</Type>
-		<Shape>BottomLeft</Shape>
+		<Type>Regular</Type>
+		<Shape>Empty</Shape>
 	</Tile>
 	<Tile>
 		<Position>
 			<x>5</x>
 			<y>4</y>
 		</Position>
-		<Type>Rotating</Type>
+		<Type>Regular</Type>
 		<Shape>TopRight</Shape>
 	</Tile>
 	<Tile>
@@ -345,7 +345,7 @@
 			<y>4</y>
 		</Position>
 		<Type>Regular</Type>
-		<Shape>TopLeft</Shape>
+		<Shape>BottomLeft</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -377,16 +377,16 @@
 			<x>1</x>
 			<y>5</y>
 		</Position>
-		<Type>MultiRotate</Type>
-		<Shape>BottomRight</Shape>
+		<Type>Regular</Type>
+		<Shape>LineDown</Shape>
 	</Tile>
 	<Tile>
 		<Position>
 			<x>2</x>
 			<y>5</y>
 		</Position>
-		<Type>MultiRotate</Type>
-		<Shape>TopLeft</Shape>
+		<Type>Regular</Type>
+		<Shape>BottomRight</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -394,23 +394,23 @@
 			<y>5</y>
 		</Position>
 		<Type>Regular</Type>
-		<Shape>BottomLeft</Shape>
+		<Shape>Cross</Shape>
 	</Tile>
 	<Tile>
 		<Position>
 			<x>4</x>
 			<y>5</y>
 		</Position>
-		<Type>Rotating</Type>
-		<Shape>BottomLeft</Shape>
+		<Type>Regular</Type>
+		<Shape>TopLeft</Shape>
 	</Tile>
 	<Tile>
 		<Position>
 			<x>5</x>
 			<y>5</y>
 		</Position>
-		<Type>Rotating</Type>
-		<Shape>TopRight</Shape>
+		<Type>Regular</Type>
+		<Shape>LineDown</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -418,7 +418,7 @@
 			<y>5</y>
 		</Position>
 		<Type>Regular</Type>
-		<Shape>BottomLeft</Shape>
+		<Shape>Empty</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -459,7 +459,7 @@
 			<y>6</y>
 		</Position>
 		<Type>Regular</Type>
-		<Shape>TopLeft</Shape>
+		<Shape>LineAcross</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -467,7 +467,7 @@
 			<y>6</y>
 		</Position>
 		<Type>Regular</Type>
-		<Shape>BottomLeft</Shape>
+		<Shape>Cross</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -475,7 +475,7 @@
 			<y>6</y>
 		</Position>
 		<Type>Regular</Type>
-		<Shape>BottomLeft</Shape>
+		<Shape>Cross</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -483,7 +483,7 @@
 			<y>6</y>
 		</Position>
 		<Type>Regular</Type>
-		<Shape>TopRight</Shape>
+		<Shape>BottomLeft</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -491,7 +491,7 @@
 			<y>6</y>
 		</Position>
 		<Type>Regular</Type>
-		<Shape>BottomLeft</Shape>
+		<Shape>Empty</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -524,7 +524,7 @@
 			<y>7</y>
 		</Position>
 		<Type>Regular</Type>
-		<Shape>BottomRight</Shape>
+		<Shape>TopRight</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -532,7 +532,7 @@
 			<y>7</y>
 		</Position>
 		<Type>Regular</Type>
-		<Shape>TopLeft</Shape>
+		<Shape>LineAcross</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -548,7 +548,7 @@
 			<y>7</y>
 		</Position>
 		<Type>Regular</Type>
-		<Shape>BottomLeft</Shape>
+		<Shape>BottomRight</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -556,7 +556,7 @@
 			<y>7</y>
 		</Position>
 		<Type>Regular</Type>
-		<Shape>TopRight</Shape>
+		<Shape>LineAcross</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -564,7 +564,7 @@
 			<y>7</y>
 		</Position>
 		<Type>Regular</Type>
-		<Shape>BottomLeft</Shape>
+		<Shape>LineAcross</Shape>
 	</Tile>
 	<Tile>
 		<Position>
@@ -572,7 +572,7 @@
 			<y>7</y>
 		</Position>
 		<Type>Regular</Type>
-		<Shape>LineDown</Shape>
+		<Shape>BottomLeft</Shape>
 	</Tile>
 	<Tile>
 		<Position>
