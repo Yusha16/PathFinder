@@ -81,6 +81,10 @@ public class TileScript : MonoBehaviour {
         {
             m_type = TileType.MultiRotate;
         }
+        else if (tileType == "Warp")
+        {
+            m_type = TileType.Warp;
+        }
 
         if (shape == "BottomLeft")
         {
@@ -334,22 +338,7 @@ public class TileScript : MonoBehaviour {
         m_shape = "Warp1";
         m_side1 = 4;
         m_side2 = 4;
-        if (m_type == TileType.Regular)
-        {
-            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RegWarp1;
-        }
-        else if (m_type == TileType.Moving)
-        {
-            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().MovingWarp1;
-        }
-        else if (m_type == TileType.Rotating)
-        {
-            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RotatingWarp1;
-        }
-        else if (m_type == TileType.MultiRotate)
-        {
-            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().MultiRotateWarp1;
-        }
+        GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RegWarp1;
     }
 
     //Set the warp 2 properties 
@@ -358,22 +347,7 @@ public class TileScript : MonoBehaviour {
         m_shape = "Warp2";
         m_side1 = 4;
         m_side2 = 4;
-        if (m_type == TileType.Regular)
-        {
-            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RegWarp2;
-        }
-        else if (m_type == TileType.Moving)
-        {
-            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().MovingWarp2;
-        }
-        else if (m_type == TileType.Rotating)
-        {
-            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RotatingWarp2;
-        }
-        else if (m_type == TileType.MultiRotate)
-        {
-            GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().MultiRotateWarp2;
-        }
+        GetComponent<SpriteRenderer>().sprite = GameObject.Find("StaticData").GetComponent<SpriteManager>().RegWarp2;
     }
 
 
@@ -400,21 +374,25 @@ public class TileScript : MonoBehaviour {
         {
             return m_type == TileType.Finish;
         }
-        else if(typeName == "Regular")
+        else if (typeName == "Regular")
         {
             return m_type == TileType.Regular;
         }
-        else if(typeName == "Moving")
+        else if (typeName == "Moving")
         {
             return m_type == TileType.Moving;
         }
-        else if(typeName == "Rotating")
+        else if (typeName == "Rotating")
         {
             return m_type == TileType.Rotating;
         }
-        else if(typeName == "MultiRotate")
+        else if (typeName == "MultiRotate")
         {
             return m_type == TileType.MultiRotate;
+        }
+        else if (typeName == "Warp")
+        {
+            return m_type == TileType.Warp;
         }
         return false;
     }
