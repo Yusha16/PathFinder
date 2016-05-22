@@ -2,7 +2,7 @@
 using System.Collections;
 
 //Tile type flag
-enum TileType
+public enum TileType
 {
     Start, 
     Finish,
@@ -364,37 +364,39 @@ public class TileScript : MonoBehaviour {
         }
     }
 
-    public bool checkType(string typeName)
+    public bool checkType(TileType tileType)
     {
-        if (typeName == "Start")
-        {
-            return m_type == TileType.Start;
-        }
-        else if (typeName == "Finish")
-        {
-            return m_type == TileType.Finish;
-        }
-        else if (typeName == "Regular")
-        {
-            return m_type == TileType.Regular;
-        }
-        else if (typeName == "Moving")
-        {
-            return m_type == TileType.Moving;
-        }
-        else if (typeName == "Rotating")
-        {
-            return m_type == TileType.Rotating;
-        }
-        else if (typeName == "MultiRotate")
-        {
-            return m_type == TileType.MultiRotate;
-        }
-        else if (typeName == "Warp")
-        {
-            return m_type == TileType.Warp;
-        }
-        return false;
+        return tileType == m_type;
+
+        //if (typeName == "Start")
+        //{
+        //    return m_type == TileType.Start;
+        //}
+        //else if (typeName == "Finish")
+        //{
+        //    return m_type == TileType.Finish;
+        //}
+        //else if (typeName == "Regular")
+        //{
+        //    return m_type == TileType.Regular;
+        //}
+        //else if (typeName == "Moving")
+        //{
+        //    return m_type == TileType.Moving;
+        //}
+        //else if (typeName == "Rotating")
+        //{
+        //    return m_type == TileType.Rotating;
+        //}
+        //else if (typeName == "MultiRotate")
+        //{
+        //    return m_type == TileType.MultiRotate;
+        //}
+        //else if (typeName == "Warp")
+        //{
+        //    return m_type == TileType.Warp;
+        //}
+        //return false;
     }
 
     public int doTileConnect(int side)

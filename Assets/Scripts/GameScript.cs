@@ -161,7 +161,7 @@ public class GameScript : MonoBehaviour {
             currentTileNode = currentTileNode.NextSibling;
 
             //Check to see if the tile is start position
-            if (m_startTilePosition == new Vector3(-1, -1, -1) && tile.GetComponent<TileScript>().checkType("Start"))
+            if (m_startTilePosition == new Vector3(-1, -1, -1) && tile.GetComponent<TileScript>().checkType(TileType.Start))
             {
                 m_startTilePosition = tilePosition;
             }
@@ -214,10 +214,10 @@ public class GameScript : MonoBehaviour {
         //Assume the MultiRotation Tiles is not on the edges of the Level
 
         //is the tile on the right a MultiRotate Tile
-        if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x + 1)].GetComponent<TileScript>().checkType("MultiRotate"))
+        if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x + 1)].GetComponent<TileScript>().checkType(TileType.MultiRotate))
         {
             //is the tile on the top a MultiRotate Tile
-            if (m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType("MultiRotate"))
+            if (m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType(TileType.MultiRotate))
             {
                 return Corners.BottomLeft;
             }
@@ -231,7 +231,7 @@ public class GameScript : MonoBehaviour {
         else
         {
             //is the tile on the top a MultiRotate Tile
-            if (m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType("MultiRotate"))
+            if (m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType(TileType.MultiRotate))
             {
                 return Corners.BottomRight;
             }
@@ -281,7 +281,7 @@ public class GameScript : MonoBehaviour {
         //if the tile is not the left side of the edge
         if (tilePosition.x != 0)
         {
-            if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x - 1)].GetComponent<TileScript>().checkType("Moving"))
+            if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x - 1)].GetComponent<TileScript>().checkType(TileType.Moving))
             {
                 return new Vector3(tilePosition.x - 1, tilePosition.y, tilePosition.z);
             }
@@ -289,7 +289,7 @@ public class GameScript : MonoBehaviour {
         //if the tile is not the top side of the edge
         if (tilePosition.y != MAX_SIZE - 1)
         {
-            if (m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType("Moving"))
+            if (m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType(TileType.Moving))
             {
                 return new Vector3(tilePosition.x, tilePosition.y + 1, tilePosition.z);
             }
@@ -297,7 +297,7 @@ public class GameScript : MonoBehaviour {
         //if the tile is not the right side of the edge
         if (tilePosition.x != MAX_SIZE - 1)
         {
-            if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x + 1)].GetComponent<TileScript>().checkType("Moving"))
+            if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x + 1)].GetComponent<TileScript>().checkType(TileType.Moving))
             {
                 return new Vector3(tilePosition.x + 1, tilePosition.y, tilePosition.z);
             }
@@ -305,7 +305,7 @@ public class GameScript : MonoBehaviour {
         //if the tile is not the bottom side of the edge
         if (tilePosition.y != 0)
         {
-            if (m_tiles["Row: " + (tilePosition.y - 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType("Moving"))
+            if (m_tiles["Row: " + (tilePosition.y - 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType(TileType.Moving))
             {
                 return new Vector3(tilePosition.x, tilePosition.y - 1, tilePosition.z);
             }
@@ -332,11 +332,11 @@ public class GameScript : MonoBehaviour {
                 if (result != 5)
                 {
                     //Check to see if the tile was the finish tile 
-                    if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x - 1)].GetComponent<TileScript>().checkType("Finish"))
+                    if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x - 1)].GetComponent<TileScript>().checkType(TileType.Finish))
                     {
                         return true;
                     }
-                    else if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x - 1)].GetComponent<TileScript>().checkType("Warp"))
+                    else if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x - 1)].GetComponent<TileScript>().checkType(TileType.Warp))
                     {
                         return checkPathCreated(findOtherWarpTile(new Vector3(tilePosition.x - 1, tilePosition.y, tilePosition.z)), result);
                     }
@@ -363,11 +363,11 @@ public class GameScript : MonoBehaviour {
                 if (result != 5)
                 {
                     //Check to see if the tile was the finish tile 
-                    if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x + 1)].GetComponent<TileScript>().checkType("Finish"))
+                    if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x + 1)].GetComponent<TileScript>().checkType(TileType.Finish))
                     {
                         return true;
                     }
-                    else if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x + 1)].GetComponent<TileScript>().checkType("Warp"))
+                    else if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x + 1)].GetComponent<TileScript>().checkType(TileType.Warp))
                     {
                         return checkPathCreated(findOtherWarpTile(new Vector3(tilePosition.x + 1, tilePosition.y, tilePosition.z)), result);
                     }
@@ -394,11 +394,11 @@ public class GameScript : MonoBehaviour {
                 if (result != 5)
                 {
                     //Check to see if the tile was the finish tile 
-                    if (m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType("Finish"))
+                    if (m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType(TileType.Finish))
                     {
                         return true;
                     }
-                    else if (m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType("Warp"))
+                    else if (m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType(TileType.Warp))
                     {
                         return checkPathCreated(findOtherWarpTile(new Vector3(tilePosition.x, tilePosition.y + 1, tilePosition.z)), result);
                     }
@@ -425,11 +425,11 @@ public class GameScript : MonoBehaviour {
                 if (result != 5)
                 {
                     //Check to see if the tile was the finish tile 
-                    if (m_tiles["Row: " + (tilePosition.y - 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType("Finish"))
+                    if (m_tiles["Row: " + (tilePosition.y - 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType(TileType.Finish))
                     {
                         return true;
                     }
-                    else if (m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType("Warp"))
+                    else if (m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType(TileType.Warp))
                     {
                         return checkPathCreated(findOtherWarpTile(new Vector3(tilePosition.x, tilePosition.y + 1, tilePosition.z)), result);
                     }
@@ -454,7 +454,7 @@ public class GameScript : MonoBehaviour {
             {
                 if (tilePosition.x != x && tilePosition.y != y)
                 {
-                    if (m_tiles["Row: " + y + " Column: " + x].GetComponent<TileScript>().checkType("Warp"))
+                    if (m_tiles["Row: " + y + " Column: " + x].GetComponent<TileScript>().checkType(TileType.Warp))
                     {
                         return new Vector3(x, y, tilePosition.z);
                     }
