@@ -29,6 +29,14 @@ public class GameScript : MonoBehaviour {
 
     bool m_inGame = false;
 
+    //Animation for the circle moving from the start to end
+    List<Vector3> m_pathPositions = new List<Vector3>();
+    bool m_win = false;
+    public GameObject m_ballPrefabObject;
+    GameObject m_ballObject;
+    Vector3 m_ballDirection = new Vector3();
+
+
     // Use this for initialization
     void Start () {
         //Intialize the map
@@ -57,6 +65,7 @@ public class GameScript : MonoBehaviour {
 
     public void StartGame(string level)
     {
+        m_ballObject = Instantiate(m_ballPrefabObject);
         loadTile("Assets/LevelData/" + level + ".xml");
         m_inGame = true;
     }
@@ -79,18 +88,11 @@ public class GameScript : MonoBehaviour {
                     if (tileScript != null)
                     {
                         tileScript.onMouseHit();
+                        m_pathPositions.Clear();
                         if (checkPathCreated(m_startTilePosition, m_startSideDirection))
                         {
-                            //User finish game so switch scene
-                            //For now...
-                            Debug.Log("You Win");
-                            //Start the game
-                            GameObject.Find("Game Background").GetComponent<LevelScript>().StartLevelSelect();
-                            //Delete all the gameobject in the scene
-                            foreach (var go in m_tiles.Values)
-                                Destroy(go);
-                            //Clear the map    
-                            m_tiles.Clear();
+                            m_win = true;
+
                             m_inGame = false;
                         }
                         else
@@ -117,6 +119,11 @@ public class GameScript : MonoBehaviour {
             {
                 m_mainCamera.transform.Translate(1, 0, 0);
             }
+            
+        }
+        if (m_win)
+        {
+            PlayPathCreated();
         }
     }
 
@@ -164,6 +171,7 @@ public class GameScript : MonoBehaviour {
             if (m_startTilePosition == new Vector3(-1, -1, -1) && tile.GetComponent<TileScript>().checkType(TileType.Start))
             {
                 m_startTilePosition = tilePosition;
+                m_ballObject.transform.position = tilePosition;
             }
         }
     }
@@ -331,6 +339,7 @@ public class GameScript : MonoBehaviour {
                 //if there is a connection then
                 if (result != 5)
                 {
+                    m_pathPositions.Insert(m_pathPositions.Count, new Vector3(tilePosition.x - 1, tilePosition.y, tilePosition.z));
                     //Check to see if the tile was the finish tile 
                     if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x - 1)].GetComponent<TileScript>().checkType(TileType.Finish))
                     {
@@ -362,6 +371,7 @@ public class GameScript : MonoBehaviour {
                 //if there is a connection then
                 if (result != 5)
                 {
+                    m_pathPositions.Insert(m_pathPositions.Count, new Vector3(tilePosition.x + 1, tilePosition.y, tilePosition.z));
                     //Check to see if the tile was the finish tile 
                     if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x + 1)].GetComponent<TileScript>().checkType(TileType.Finish))
                     {
@@ -386,6 +396,7 @@ public class GameScript : MonoBehaviour {
         {
             if (tileSide == 0)
             {
+                m_pathPositions.Insert(m_pathPositions.Count, new Vector3(tilePosition.x, tilePosition.y + 1, tilePosition.z));
                 //Get the next side it will go off from
                 result = m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().doTileConnect(
                     tileSide);
@@ -417,6 +428,7 @@ public class GameScript : MonoBehaviour {
         {
             if (tileSide == 2)
             {
+                m_pathPositions.Insert(m_pathPositions.Count, new Vector3(tilePosition.x, tilePosition.y - 1, tilePosition.z));
                 //Get the next side it will go off from
                 result = m_tiles["Row: " + (tilePosition.y - 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().doTileConnect(
                     tileSide);
@@ -469,5 +481,60 @@ public class GameScript : MonoBehaviour {
     {
 
         return false;
+    }
+
+    void PlayPathCreated()
+    {
+        if (m_pathPositions.Count <= 0)
+        {
+            //User finish game so switch scene
+            //For now...
+            Debug.Log("You Win");
+            //Start the game
+            GameObject.Find("Game Background").GetComponent<LevelScript>().StartLevelSelect();
+            //Delete all the gameobject in the scene
+            foreach (var go in m_tiles.Values)
+                Destroy(go);
+            //Clear the map    
+            m_tiles.Clear();
+            m_inGame = false;
+            Destroy(m_ballObject);
+        }
+        else
+        {
+            m_ballDirection = m_pathPositions[0] - m_ballObject.transform.position;
+            //Going up or down
+            if (m_ballDirection.x != 0.0f)
+            {
+                //Going Up
+                if (m_ballDirection.y > 0.0f)
+                {
+                    m_ballObject.transform.position += new Vector3(0.0f, 0.1f, 0.0f);
+                }
+                //Going Down
+                else
+                {
+                    m_ballObject.transform.position += new Vector3(0.0f, -0.1f, 0.0f);
+                }
+            }
+            else
+            {
+                //Going Up
+                if (m_ballDirection.x > 0.0f)
+                {
+                    m_ballObject.transform.position += new Vector3(0.1f, 0.0f, 0.0f);
+                }
+                //Going Down
+                else
+                {
+                    m_ballObject.transform.position += new Vector3(-0.1f, 0.0f, 0.0f);
+                }
+            }
+            //If on the tile then head to next tile
+            if (m_ballObject.transform.position == m_pathPositions[0])
+            {
+                m_pathPositions.RemoveAt(0);
+            }
+        }
     }
 }
