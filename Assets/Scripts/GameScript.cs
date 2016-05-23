@@ -134,6 +134,22 @@ public class GameScript : MonoBehaviour {
         //Set the Max Size and the start direction
         MAX_SIZE = int.Parse(xmlFile.FirstChild.Attributes.Item(0).Value);
         m_startSideDirection = int.Parse(xmlFile.FirstChild.Attributes.Item(1).Value);
+        if (m_startSideDirection == 0)
+        {
+            m_ballDirection = new Vector3(0, 1, 0);
+        }
+        else if (m_startSideDirection == 1)
+        {
+            m_ballDirection = new Vector3(1, 0, 0);
+        }
+        else if (m_startSideDirection == 2)
+        {
+            m_ballDirection = new Vector3(0, -1, 0);
+        }
+        else
+        {
+            m_ballDirection = new Vector3(-1, 0, 0);
+        }
 
         GameObject tile;
         //Go to the First Tile Tag node
@@ -171,7 +187,8 @@ public class GameScript : MonoBehaviour {
             if (m_startTilePosition == new Vector3(-1, -1, -1) && tile.GetComponent<TileScript>().checkType(TileType.Start))
             {
                 m_startTilePosition = tilePosition;
-                m_ballObject.transform.position = tilePosition;
+                m_ballObject.transform.position = tile.transform.position;
+                m_ballObject.transform.position -= new Vector3(0.0f, 0.0f, 1.0f);
             }
         }
     }
@@ -339,7 +356,7 @@ public class GameScript : MonoBehaviour {
                 //if there is a connection then
                 if (result != 5)
                 {
-                    m_pathPositions.Insert(m_pathPositions.Count, new Vector3(tilePosition.x - 1, tilePosition.y, tilePosition.z));
+                    m_pathPositions.Insert(m_pathPositions.Count, m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x - 1)].transform.position);
                     //Check to see if the tile was the finish tile 
                     if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x - 1)].GetComponent<TileScript>().checkType(TileType.Finish))
                     {
@@ -371,7 +388,7 @@ public class GameScript : MonoBehaviour {
                 //if there is a connection then
                 if (result != 5)
                 {
-                    m_pathPositions.Insert(m_pathPositions.Count, new Vector3(tilePosition.x + 1, tilePosition.y, tilePosition.z));
+                    m_pathPositions.Insert(m_pathPositions.Count, m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x + 1)].transform.position);
                     //Check to see if the tile was the finish tile 
                     if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x + 1)].GetComponent<TileScript>().checkType(TileType.Finish))
                     {
@@ -396,7 +413,6 @@ public class GameScript : MonoBehaviour {
         {
             if (tileSide == 0)
             {
-                m_pathPositions.Insert(m_pathPositions.Count, new Vector3(tilePosition.x, tilePosition.y + 1, tilePosition.z));
                 //Get the next side it will go off from
                 result = m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().doTileConnect(
                     tileSide);
@@ -404,6 +420,7 @@ public class GameScript : MonoBehaviour {
                 //if there is a connection then
                 if (result != 5)
                 {
+                    m_pathPositions.Insert(m_pathPositions.Count, m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x].transform.position);
                     //Check to see if the tile was the finish tile 
                     if (m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType(TileType.Finish))
                     {
@@ -428,7 +445,6 @@ public class GameScript : MonoBehaviour {
         {
             if (tileSide == 2)
             {
-                m_pathPositions.Insert(m_pathPositions.Count, new Vector3(tilePosition.x, tilePosition.y - 1, tilePosition.z));
                 //Get the next side it will go off from
                 result = m_tiles["Row: " + (tilePosition.y - 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().doTileConnect(
                     tileSide);
@@ -436,6 +452,7 @@ public class GameScript : MonoBehaviour {
                 //if there is a connection then
                 if (result != 5)
                 {
+                    m_pathPositions.Insert(m_pathPositions.Count, m_tiles["Row: " + (tilePosition.y - 1) + " Column: " + tilePosition.x].transform.position);
                     //Check to see if the tile was the finish tile 
                     if (m_tiles["Row: " + (tilePosition.y - 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType(TileType.Finish))
                     {
@@ -502,9 +519,8 @@ public class GameScript : MonoBehaviour {
         }
         else
         {
-            m_ballDirection = m_pathPositions[0] - m_ballObject.transform.position;
             //Going up or down
-            if (m_ballDirection.x != 0.0f)
+            if (m_ballDirection.x == 0.0f)
             {
                 //Going Up
                 if (m_ballDirection.y > 0.0f)
@@ -531,9 +547,19 @@ public class GameScript : MonoBehaviour {
                 }
             }
             //If on the tile then head to next tile
-            if (m_ballObject.transform.position == m_pathPositions[0])
+            Debug.Log("Tile: " + m_pathPositions[0]);
+            Debug.Log("Ball: " +  m_ballObject.transform.position);
+            Debug.Log(m_ballObject.transform.position.x == m_pathPositions[0].x);
+            Debug.Log(m_ballObject.transform.position.y == m_pathPositions[0].y);
+
+            if (m_ballObject.transform.position.x == m_pathPositions[0].x
+                && m_ballObject.transform.position.y == m_pathPositions[0].y)
             {
+                Debug.Log("Removed");
                 m_pathPositions.RemoveAt(0);
+                Debug.Log(m_pathPositions[0] + " Size: " + m_pathPositions.Count);
+                m_ballDirection = m_pathPositions[0] - m_ballObject.transform.position;
+
             }
         }
     }
