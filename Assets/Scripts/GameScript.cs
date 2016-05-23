@@ -150,6 +150,7 @@ public class GameScript : MonoBehaviour {
         {
             m_ballDirection = new Vector3(-1, 0, 0);
         }
+        downsizeBallDirection();
 
         GameObject tile;
         //Go to the First Tile Tag node
@@ -515,51 +516,59 @@ public class GameScript : MonoBehaviour {
             //Clear the map    
             m_tiles.Clear();
             m_inGame = false;
+            m_win = false;
             Destroy(m_ballObject);
         }
         else
         {
-            //Going up or down
-            if (m_ballDirection.x == 0.0f)
-            {
-                //Going Up
-                if (m_ballDirection.y > 0.0f)
-                {
-                    m_ballObject.transform.position += new Vector3(0.0f, 0.1f, 0.0f);
-                }
-                //Going Down
-                else
-                {
-                    m_ballObject.transform.position += new Vector3(0.0f, -0.1f, 0.0f);
-                }
-            }
-            else
-            {
-                //Going Up
-                if (m_ballDirection.x > 0.0f)
-                {
-                    m_ballObject.transform.position += new Vector3(0.1f, 0.0f, 0.0f);
-                }
-                //Going Down
-                else
-                {
-                    m_ballObject.transform.position += new Vector3(-0.1f, 0.0f, 0.0f);
-                }
-            }
-            //If on the tile then head to next tile
-            Debug.Log("Tile: " + m_pathPositions[0]);
-            Debug.Log("Ball: " +  m_ballObject.transform.position);
-            Debug.Log(m_ballObject.transform.position.x == m_pathPositions[0].x);
-            Debug.Log(m_ballObject.transform.position.y == m_pathPositions[0].y);
+            m_ballObject.transform.position += m_ballDirection;
+            //Round the position of the Ball 
+            m_ballObject.transform.position = new Vector3(
+                Mathf.Round(m_ballObject.transform.position.x * 1000) / 1000,
+                Mathf.Round(m_ballObject.transform.position.y * 1000) / 1000,
+                m_ballObject.transform.position.z
+                );
 
             if (m_ballObject.transform.position.x == m_pathPositions[0].x
                 && m_ballObject.transform.position.y == m_pathPositions[0].y)
             {
-                Debug.Log("Removed");
                 m_pathPositions.RemoveAt(0);
-                Debug.Log(m_pathPositions[0] + " Size: " + m_pathPositions.Count);
-                m_ballDirection = m_pathPositions[0] - m_ballObject.transform.position;
+                if (m_pathPositions.Count > 0)
+                { 
+                    m_ballDirection = m_pathPositions[0] - m_ballObject.transform.position;
+                    downsizeBallDirection();
+                }
+            }
+        }
+    }
 
+    void downsizeBallDirection()
+    {
+        //Going up or down
+        if (m_ballDirection.x == 0.0f)
+        {
+            //Going Up
+            if (m_ballDirection.y > 0.0f)
+            {
+                m_ballDirection = new Vector3(0.0f, 0.01f, 0.0f);
+            }
+            //Going Down
+            else
+            {
+                m_ballDirection = new Vector3(0.0f, -0.01f, 0.0f);
+            }
+        }
+        else
+        {
+            //Going Up
+            if (m_ballDirection.x > 0.0f)
+            {
+                m_ballDirection = new Vector3(0.01f, 0.0f, 0.0f);
+            }
+            //Going Down
+            else
+            {
+                m_ballDirection = new Vector3(-0.01f, 0.0f, 0.0f);
             }
         }
     }
