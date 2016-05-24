@@ -62,7 +62,6 @@ public class SpriteManager : MonoBehaviour{
     public Sprite RotatingWarp2;
 
     //Multi Rotating Types
-    //Rotating Types
     public Sprite MultiRotateBottomAndLeft;
     public Sprite MultiRotateBottomAndRight;
     public Sprite MultiRotateCross;
@@ -74,5 +73,104 @@ public class SpriteManager : MonoBehaviour{
     public Sprite MultiRotateWarp1;
     public Sprite MultiRotateWarp2;
 
+
+
+    //Connected Regular Types
+    public Sprite ConnectedRegBottomAndLeft;
+    public Sprite ConnectedRegBottomAndRight;
+    public Sprite ConnectedRegCross;
+    public Sprite ConnectedRegEmpty;
+    public Sprite ConnectedRegLineAcross;
+    public Sprite ConnectedRegLineDown;
+    public Sprite ConnectedRegTopAndLeft;
+    public Sprite ConnectedRegTopAndRight;
+    public Sprite ConnectedRegWarp1;
+    public Sprite ConnectedRegWarp2;
+
+    //Connected Moving Types
+    public Sprite ConnectedMovingBottomAndLeft;
+    public Sprite ConnectedMovingBottomAndRight;
+    public Sprite ConnectedMovingCross;
+    public Sprite ConnectedMovingEmpty;
+    public Sprite ConnectedMovingLineAcross;
+    public Sprite ConnectedMovingLineDown;
+    public Sprite ConnectedMovingTopAndLeft;
+    public Sprite ConnectedMovingTopAndRight;
+    public Sprite ConnectedMovingWarp1;
+    public Sprite ConnectedMovingWarp2;
+
+    //Connected Rotating Types
+    public Sprite ConnectedRotatingBottomAndLeft;
+    public Sprite ConnectedRotatingBottomAndRight;
+    public Sprite ConnectedRotatingCross;
+    public Sprite ConnectedRotatingEmpty;
+    public Sprite ConnectedRotatingLineAcross;
+    public Sprite ConnectedRotatingLineDown;
+    public Sprite ConnectedRotatingTopAndLeft;
+    public Sprite ConnectedRotatingTopAndRight;
+    public Sprite ConnectedRotatingWarp1;
+    public Sprite ConnectedRotatingWarp2;
+
+    //Connected Multi Rotating Types
+    public Sprite ConnectedMultiRotateBottomAndLeft;
+    public Sprite ConnectedMultiRotateBottomAndRight;
+    public Sprite ConnectedMultiRotateCross;
+    public Sprite ConnectedMultiRotateEmpty;
+    public Sprite ConnectedMultiRotateLineAcross;
+    public Sprite ConnectedMultiRotateLineDown;
+    public Sprite ConnectedMultiRotateTopAndLeft;
+    public Sprite ConnectedMultiRotateTopAndRight;
+    public Sprite ConnectedMultiRotateWarp1;
+    public Sprite ConnectedMultiRotateWarp2;
+
+
+
+    //Finish Regular Types
+    public Sprite FinishRegBottomAndLeft;
+    public Sprite FinishRegBottomAndRight;
+    public Sprite FinishRegCross;
+    public Sprite FinishRegEmpty;
+    public Sprite FinishRegLineAcross;
+    public Sprite FinishRegLineDown;
+    public Sprite FinishRegTopAndLeft;
+    public Sprite FinishRegTopAndRight;
+    public Sprite FinishRegWarp1;
+    public Sprite FinishRegWarp2;
+
+    //Finish Moving Types
+    public Sprite FinishMovingBottomAndLeft;
+    public Sprite FinishMovingBottomAndRight;
+    public Sprite FinishMovingCross;
+    public Sprite FinishMovingEmpty;
+    public Sprite FinishMovingLineAcross;
+    public Sprite FinishMovingLineDown;
+    public Sprite FinishMovingTopAndLeft;
+    public Sprite FinishMovingTopAndRight;
+    public Sprite FinishMovingWarp1;
+    public Sprite FinishMovingWarp2;
+
+    //Finish Rotating Types
+    public Sprite FinishRotatingBottomAndLeft;
+    public Sprite FinishRotatingBottomAndRight;
+    public Sprite FinishRotatingCross;
+    public Sprite FinishRotatingEmpty;
+    public Sprite FinishRotatingLineAcross;
+    public Sprite FinishRotatingLineDown;
+    public Sprite FinishRotatingTopAndLeft;
+    public Sprite FinishRotatingTopAndRight;
+    public Sprite FinishRotatingWarp1;
+    public Sprite FinishRotatingWarp2;
+
+    //Finish Multi Rotating Types
+    public Sprite FinishMultiRotateBottomAndLeft;
+    public Sprite FinishMultiRotateBottomAndRight;
+    public Sprite FinishMultiRotateCross;
+    public Sprite FinishMultiRotateEmpty;
+    public Sprite FinishMultiRotateLineAcross;
+    public Sprite FinishMultiRotateLineDown;
+    public Sprite FinishMultiRotateTopAndLeft;
+    public Sprite FinishMultiRotateTopAndRight;
+    public Sprite FinishMultiRotateWarp1;
+    public Sprite FinishMultiRotateWarp2;
 
 }
