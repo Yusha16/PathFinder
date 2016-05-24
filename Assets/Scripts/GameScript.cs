@@ -36,6 +36,8 @@ public class GameScript : MonoBehaviour {
     GameObject m_ballObject;
     Vector3 m_ballDirection = new Vector3();
 
+    bool playBallPath = false;
+    float m_timer = 0.0f;
 
     // Use this for initialization
     void Start () {
@@ -521,22 +523,34 @@ public class GameScript : MonoBehaviour {
         }
         else
         {
-            m_ballObject.transform.position += m_ballDirection;
-            //Round the position of the Ball 
-            m_ballObject.transform.position = new Vector3(
-                Mathf.Round(m_ballObject.transform.position.x * 1000) / 1000,
-                Mathf.Round(m_ballObject.transform.position.y * 1000) / 1000,
-                m_ballObject.transform.position.z
-                );
-
-            if (m_ballObject.transform.position.x == m_pathPositions[0].x
-                && m_ballObject.transform.position.y == m_pathPositions[0].y)
+            if (!playBallPath)
             {
-                m_pathPositions.RemoveAt(0);
-                if (m_pathPositions.Count > 0)
-                { 
-                    m_ballDirection = m_pathPositions[0] - m_ballObject.transform.position;
-                    downsizeBallDirection();
+                m_timer += Time.deltaTime;
+                if (m_timer >= 3.0f)
+                {
+                    m_timer = 0.0f;
+                    m_pathPositions.Clear();
+                }
+            }
+            else
+            {
+                m_ballObject.transform.position += m_ballDirection;
+                //Round the position of the Ball 
+                m_ballObject.transform.position = new Vector3(
+                    Mathf.Round(m_ballObject.transform.position.x * 1000) / 1000,
+                    Mathf.Round(m_ballObject.transform.position.y * 1000) / 1000,
+                    m_ballObject.transform.position.z
+                    );
+
+                if (m_ballObject.transform.position.x == m_pathPositions[0].x
+                    && m_ballObject.transform.position.y == m_pathPositions[0].y)
+                {
+                    m_pathPositions.RemoveAt(0);
+                    if (m_pathPositions.Count > 0)
+                    {
+                        m_ballDirection = m_pathPositions[0] - m_ballObject.transform.position;
+                        downsizeBallDirection();
+                    }
                 }
             }
         }
