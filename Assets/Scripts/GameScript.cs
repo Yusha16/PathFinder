@@ -41,7 +41,7 @@ public class GameScript : MonoBehaviour {
 
 
     //Current Path 
-    List<GameObject> m_pathTiles; 
+    List<GameObject> m_pathTiles = new List<GameObject>(); 
 
     // Use this for initialization
     void Start () {
@@ -71,7 +71,6 @@ public class GameScript : MonoBehaviour {
 
     public void StartGame(string level)
     {
-        m_ballObject = Instantiate(m_ballPrefabObject);
         loadTile("Assets/LevelData/" + level + ".xml");
         m_inGame = true;
     }
@@ -172,6 +171,7 @@ public class GameScript : MonoBehaviour {
             m_ballDirection = new Vector3(-1, 0, 0);
         }
         downsizeBallDirection();
+        m_ballObject = Instantiate(m_ballPrefabObject);
 
         GameObject tile;
         //Go to the First Tile Tag node
@@ -477,7 +477,7 @@ public class GameScript : MonoBehaviour {
                 //if there is a connection then
                 if (result != 5)
                 {
-                    m_pathTiles.Insert(m_pathTiles.Count, m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x]);
+                    m_pathTiles.Insert(m_pathTiles.Count, m_tiles["Row: " + (tilePosition.y - 1) + " Column: " + tilePosition.x]);
                     m_pathPositions.Insert(m_pathPositions.Count, m_tiles["Row: " + (tilePosition.y - 1) + " Column: " + tilePosition.x].transform.position);
                     //Check to see if the tile was the finish tile 
                     if (m_tiles["Row: " + (tilePosition.y - 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType(TileType.Finish))
@@ -543,6 +543,7 @@ public class GameScript : MonoBehaviour {
             m_inGame = false;
             m_win = false;
             Destroy(m_ballObject);
+            m_pathTiles.Clear();
         }
         else
         {
