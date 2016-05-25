@@ -544,6 +544,7 @@ public class GameScript : MonoBehaviour {
             m_win = false;
             Destroy(m_ballObject);
             m_pathTiles.Clear();
+            m_startTilePosition = new Vector3(-1, -1, -1);
         }
         else
         {
