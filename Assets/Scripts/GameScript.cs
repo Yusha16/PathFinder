@@ -39,6 +39,10 @@ public class GameScript : MonoBehaviour {
     bool playBallPath = false;
     float m_timer = 0.0f;
 
+
+    //Current Path 
+    List<GameObject> m_pathTiles; 
+
     // Use this for initialization
     void Start () {
         //Intialize the map
@@ -90,16 +94,31 @@ public class GameScript : MonoBehaviour {
                     if (tileScript != null)
                     {
                         tileScript.onMouseHit();
+                        //Set all the Sprite back to normal
+                        for (int i = 0; i < m_pathTiles.Count; i++)
+                        {
+                            m_pathTiles[i].GetComponent<TileScript>().ChangeState(TileState.Regular);
+                        }
+                        m_pathTiles.Clear();
                         m_pathPositions.Clear();
                         if (checkPathCreated(m_startTilePosition, m_startSideDirection))
                         {
                             m_win = true;
-
+                            //Set all the tile in the path to Finished Sprite
+                            for (int i = 0; i < m_pathTiles.Count; i++)
+                            {
+                                m_pathTiles[i].GetComponent<TileScript>().ChangeState(TileState.Finish);
+                            }
                             m_inGame = false;
                         }
                         else
                         {
                             Debug.Log("No Connection Yet");
+                            //Set all the tile in the path to Connected Sprite
+                            for (int i = 0; i < m_pathTiles.Count; i++)
+                            {
+                                m_pathTiles[i].GetComponent<TileScript>().ChangeState(TileState.Connected);
+                            }
                         }
                     }
                 }
@@ -359,6 +378,7 @@ public class GameScript : MonoBehaviour {
                 //if there is a connection then
                 if (result != 5)
                 {
+                    m_pathTiles.Insert(m_pathTiles.Count, m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x - 1)]);
                     m_pathPositions.Insert(m_pathPositions.Count, m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x - 1)].transform.position);
                     //Check to see if the tile was the finish tile 
                     if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x - 1)].GetComponent<TileScript>().checkType(TileType.Finish))
@@ -391,6 +411,7 @@ public class GameScript : MonoBehaviour {
                 //if there is a connection then
                 if (result != 5)
                 {
+                    m_pathTiles.Insert(m_pathTiles.Count, m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x + 1)]);
                     m_pathPositions.Insert(m_pathPositions.Count, m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x + 1)].transform.position);
                     //Check to see if the tile was the finish tile 
                     if (m_tiles["Row: " + tilePosition.y + " Column: " + (tilePosition.x + 1)].GetComponent<TileScript>().checkType(TileType.Finish))
@@ -423,6 +444,7 @@ public class GameScript : MonoBehaviour {
                 //if there is a connection then
                 if (result != 5)
                 {
+                    m_pathTiles.Insert(m_pathTiles.Count, m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x]);
                     m_pathPositions.Insert(m_pathPositions.Count, m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x].transform.position);
                     //Check to see if the tile was the finish tile 
                     if (m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType(TileType.Finish))
@@ -455,6 +477,7 @@ public class GameScript : MonoBehaviour {
                 //if there is a connection then
                 if (result != 5)
                 {
+                    m_pathTiles.Insert(m_pathTiles.Count, m_tiles["Row: " + (tilePosition.y + 1) + " Column: " + tilePosition.x]);
                     m_pathPositions.Insert(m_pathPositions.Count, m_tiles["Row: " + (tilePosition.y - 1) + " Column: " + tilePosition.x].transform.position);
                     //Check to see if the tile was the finish tile 
                     if (m_tiles["Row: " + (tilePosition.y - 1) + " Column: " + tilePosition.x].GetComponent<TileScript>().checkType(TileType.Finish))

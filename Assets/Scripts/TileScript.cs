@@ -576,6 +576,23 @@ public class TileScript : MonoBehaviour {
         return 5;
     }
 
+    public void ChangeState(TileState state)
+    {
+        m_tileState = state;
+        if (m_tileState == TileState.Regular)
+        {
+            GetComponent<SpriteRenderer>().sprite = m_originalSprite;
+        }
+        else if (m_tileState == TileState.Connected)
+        {
+            GetComponent<SpriteRenderer>().sprite = m_pathConnectedSprite;
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().sprite = m_finishPathSprite;
+        }
+    }
+
     //Properties
 
     //Tile Shape 
