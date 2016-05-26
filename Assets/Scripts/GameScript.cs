@@ -73,6 +73,12 @@ public class GameScript : MonoBehaviour {
     {
         loadTile("Assets/LevelData/" + level + ".xml");
         m_inGame = true;
+        checkPathCreated(m_startTilePosition, m_startSideDirection);
+        //Set all the tile in the path to Connected Sprite
+        for (int i = 0; i < m_pathTiles.Count; i++)
+        {
+            m_pathTiles[i].GetComponent<TileScript>().ChangeState(TileState.Connected);
+        }
     }
 	
 	// Update is called once per frame

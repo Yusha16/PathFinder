@@ -175,7 +175,7 @@
 			<y>2</y>
 		</Position>
 		<Type>Rotating</Type>
-		<Shape>LineDown</Shape>
+		<Shape>LineAcross</Shape>
 	</Tile>
 	<Tile>
 		<Position>
